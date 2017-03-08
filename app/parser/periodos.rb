@@ -1,20 +1,8 @@
 require 'nokogiri'
+require 'pry'
 
 class PeriodosParser
-  def self.parsear(page)
-    tablas = page.xpath("//table")
-    parrafos = page.xpath("//p")
-
-    informacion = tablas.shift
-    info_mapa = informacion(informacion)
-
-    periodos_arr = periodos(tablas, parrafos)
-    periodos_mapa = {
-      periodos: periodos_arr
-    }
-  end
-
-  def informacion(tabla)
+  def self.get_informacion(tabla)
     rows = tabla.xpath("tr")
     programa_array = rows[1].xpath("td")[0].content.split
     programa = programa_array[1..-1].join(" ")
@@ -28,18 +16,82 @@ class PeriodosParser
     mapa
   end
 
-  def periodo(tablas, parrafos, acumulador = [], pila = [])
-    if !t.empty? then parciales = parciales(tablas.pop, acumulador) else return pila end
+  def self.periodos(tablas, parrafos, acumulador = [], pila = [])
+    if !tablas.empty? then boletas = self.boletas(tablas.pop, parrafos.pop, acumulador) else return pila end
 
-    tipo = parrafos.pop.content
-    if p.last.include?("Periodo") then 
+    if parrafos.last.content.include?('Periodo') then 
       periodo = parrafos.pop.content 
-      periodo_mapa = get_mapa(periodo, tipo, parciales, acumulador.pop)
+      periodo_mapa = get_mapa(periodo, boletas)
       pila << periodo_mapa
-      periodo(tablas, parrafos, acumulador, pila)
+      periodos(tablas, parrafos, acumulador, pila)
     else
-      acumulador << parciales
-      periodo(tablas, parrafos, acumulador, pila)
+      acumulador << boletas
+      periodos(tablas, parrafos, acumulador, pila)
     end
+  end
+
+  def self.get_mapa(periodo, boletas)
+    mapa = {
+      periodo: periodo,
+      boletas: boletas
+    }
+    mapa
+  end
+
+  def self.boletas(tabla, parrafo,  acumulador)
+    tipo = parrafo.content
+    boletas = []
+
+    rows = tabla.xpath("tr") 
+    boletas_rows = rows[2..-4]
+    boletas_rows.each_with_index do |b, i|
+      if i.even? then
+        celdas = b.xpath("td")
+        nom_materia = celdas[1].content
+        profesor = celdas[-1].content
+        parcial1 = celdas[4].content
+        parcial2 = celdas[6].content
+        parcial3 = celdas[8].content
+        parcial4 = celdas[10].content
+        mapa = {
+          tipo: tipo,
+          materia: nom_materia,
+          profesor: profesor,
+          parciales: [
+            {
+              numero: 1,
+              calificacion: parcial1
+            },
+            {
+              numero: 2,
+              calificacion: parcial2
+            },
+            {
+              numero: 3,
+              calificacion: parcial3
+            },
+            {
+              numero: 4,
+              calificacion: parcial4
+            }
+          ]
+        }
+       boletas << mapa 
+      end
+    end
+
+    boletas << acumulador.pop unless acumulador.empty?
+    boletas
+  end
+
+  def self.parsear(page)
+    tablas = page.xpath("//table")
+    parrafos = page.xpath("//p")[1..-6]
+
+    info = tablas.shift
+    info_mapa = self.get_informacion(info)
+
+    periodos_arr = self.periodos(tablas, parrafos)
+    periodos_arr
   end
 end

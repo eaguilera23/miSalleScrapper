@@ -61,9 +61,9 @@ class Navegador
   def periodos
     url = get_url(@@pag_periodos)
     page = @@agent.get(url)
-    tablas
     periodos_arr = PeriodosParser.parsear(page)
     periodos_arr
+    #page
   end
 
 private
