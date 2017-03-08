@@ -14,28 +14,29 @@ class HorarioParser
     horario
   end
 
-  def self.materia(materia)
-    clases = []
-    nombre = materia[1]
-    # grupo = if !materia[8].empty? then materia[8] else nil end
-    # salon = if !materia[9].empty? then materia[9] else nil end
-    profesor = materia[10]
-    horas = materia[2..7]
-    horas.each_with_index do |h, i|
-      clases << clase(i+1,h,nombre,profesor) if h != "00-00"
+private
+    def materia(materia)
+      clases = []
+      nombre = materia[1]
+      # grupo = if !materia[8].empty? then materia[8] else nil end
+      # salon = if !materia[9].empty? then materia[9] else nil end
+      profesor = materia[10]
+      horas = materia[2..7]
+      horas.each_with_index do |h, i|
+        clases << clase(i+1,h,nombre,profesor) if h != "00-00"
+      end
+      clases
     end
-    clases
-  end
 
-  def self.clase(dia, horas, materia, profesor)
-    divididas = horas.split("-")
-    estructura = {
-      dia: dia,
-      hora_inicio: divididas[0],
-      hora_final: divididas[1],
-      materia: materia,
-      profesor: profesor
-    }
-    estructura
-  end
+    def clase(dia, horas, materia, profesor)
+      divididas = horas.split("-")
+      estructura = {
+        dia: dia,
+        hora_inicio: divididas[0],
+        hora_final: divididas[1],
+        materia: materia,
+        profesor: profesor
+      }
+      estructura
+    end
 end

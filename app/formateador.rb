@@ -11,9 +11,8 @@ class Formateador
       },
       nombre: "Eduardo Aguilera",
       matricula: 60567,
-      campus: {
-        nombre: "La Salle"
-      },
+      programa: "Las torres",
+      campus: "La Salle",
       creditos: [{
         tipo: "solidaridad",
         cantidad: 8

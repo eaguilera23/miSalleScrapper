@@ -1,5 +1,7 @@
 require 'mechanize'
+require 'json'
 require_relative 'parser/horario'
+require_relative 'parser/periodos'
 
 class Navegador
 
@@ -39,11 +41,14 @@ class Navegador
     form.nip = params[:password]
     page = @@agent.submit(form)
     menu = page.frames[1].click
+    # temp
     horario
+    # Como unir todos los jsons:
+    # http://stackoverflow.com/questions/13990523/how-to-append-json-objects-together-in-ruby
   end
 
   def horario
-    url = @@url + @@pag_horario + @@url_terminacion + @@matricula
+    url = get_url(@@pag_horario)
     page = @@agent.get(url)
 
     # Tabla que contiene las horas de las clases
@@ -52,4 +57,17 @@ class Navegador
     clases = HorarioParser.parsear(table)
     clases
   end
+
+  def periodos
+    url = get_url(@@pag_periodos)
+    page = @@agent.get(url)
+    tablas
+    periodos_arr = PeriodosParser.parsear(page)
+    periodos_arr
+  end
+
+private
+    def get_url(pag)
+      @@url + pag + @@url_terminacion + @@matricula
+    end
 end

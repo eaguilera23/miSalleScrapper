@@ -22,3 +22,8 @@ puts page
 
 ## FORMATO DE JSON
 
+alumno = {
+  matricula: 00060567,
+  password: "Eao60567",
+
+}
