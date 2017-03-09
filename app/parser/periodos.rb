@@ -17,10 +17,10 @@ class PeriodosParser
   end
 
   def self.periodos(tablas, parrafos, acumulador = [], pila = [])
-    if !tablas.empty? then boletas = self.boletas(tablas.pop, parrafos.pop, acumulador) else return pila end
-
+    if !tablas.empty? then boletas, faltas = self.boletas(tablas.pop, parrafos.pop, acumulador) else return pila end
+    binding.pry
     if parrafos.last.content.include?('Periodo') then 
-      periodo = parrafos.pop.content 
+      periodo = get_periodo(parrafos.pop.content)
       periodo_mapa = get_mapa(periodo, boletas)
       pila << periodo_mapa
       periodos(tablas, parrafos, acumulador, pila)
@@ -32,7 +32,9 @@ class PeriodosParser
 
   def self.get_mapa(periodo, boletas)
     mapa = {
-      periodo: periodo,
+      mes_inicio: periodo[:mes_inicio],
+      mes_final: periodo[:mes_final],
+      year: periodo[:year],
       boletas: boletas
     }
     mapa
@@ -53,7 +55,7 @@ class PeriodosParser
         parcial2 = celdas[6].content.strip
         parcial3 = celdas[8].content.strip
         parcial4 = celdas[10].content.strip
-        # faltas = celdas[11].content.strip
+        faltas = celdas[11].content.strip
         final = celdas[12].content.strip
         mapa = {
           tipo: tipo,
@@ -87,7 +89,7 @@ class PeriodosParser
       end
     end
     boletas << acumulador.last.pop unless acumulador.empty?
-    boletas
+    return boletas 
   end
 
   def self.parsear(page)
@@ -99,5 +101,49 @@ class PeriodosParser
 
     periodos_arr = self.periodos(tablas, parrafos)
     periodos_arr
+  end
+
+  def self.get_periodo(periodo)
+    arr = periodo.split
+    mes_inicio = get_mes_num(arr[1].strip)
+    mes_final = get_mes_num(arr[3].strip)
+    year = arr[4].to_i
+    map = {
+      mes_inicio: mes_inicio,
+      mes_final: mes_final,
+      year: year
+    }
+    map
+  end
+
+  def self.get_mes_num(mes)
+    case mes
+    when "AGO"
+      return 8
+    when "DIC"
+      return 12
+    when "FEB"
+      return 2
+    when "JUN"
+      return 6
+    when "ENE"
+      return 1
+    when "MAR"
+      return 3
+    when "ABR"
+      return 4
+    when "MAY"
+      return 5
+    when "JUL"
+      return 7
+    when "SEP"
+      return 9
+    when "OCT"
+      return 10
+    when "NOV"
+      return 11
+    else
+      return 0
+    end
   end
 end
