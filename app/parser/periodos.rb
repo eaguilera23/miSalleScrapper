@@ -49,10 +49,12 @@ class PeriodosParser
         celdas = b.xpath("td")
         nom_materia = celdas[1].content
         profesor = celdas[-1].content
-        parcial1 = celdas[4].content
-        parcial2 = celdas[6].content
-        parcial3 = celdas[8].content
-        parcial4 = celdas[10].content
+        parcial1 = celdas[4].content.strip
+        parcial2 = celdas[6].content.strip
+        parcial3 = celdas[8].content.strip
+        parcial4 = celdas[10].content.strip
+        # faltas = celdas[11].content.strip
+        final = celdas[12].content.strip
         mapa = {
           tipo: tipo,
           materia: nom_materia,
@@ -73,14 +75,18 @@ class PeriodosParser
             {
               numero: 4,
               calificacion: parcial4
+            },
+            {
+              # Calificacion Final
+              numero: 5,
+              calificacion: final
             }
           ]
         }
        boletas << mapa 
       end
     end
-
-    boletas << acumulador.pop unless acumulador.empty?
+    boletas << acumulador.last.pop unless acumulador.empty?
     boletas
   end
 
