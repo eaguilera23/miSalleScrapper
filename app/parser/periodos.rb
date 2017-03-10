@@ -16,18 +16,32 @@ class PeriodosParser
     mapa
   end
 
-  def self.periodos(tablas, parrafos, acumulador = [], pila = [])
-    if !tablas.empty? then boletas, faltas = self.boletas(tablas.pop, parrafos.pop, acumulador) else return pila end
-    binding.pry
+  def self.periodos(tablas, parrafos, acumulador = [], pila = [], faltas = [])
+    if !tablas.empty? then boletas, faltas_arr = self.boletas(tablas.pop, parrafos.pop, acumulador) else return pila, faltas end
+
     if parrafos.last.content.include?('Periodo') then 
       periodo = get_periodo(parrafos.pop.content)
       periodo_mapa = get_mapa(periodo, boletas)
       pila << periodo_mapa
-      periodos(tablas, parrafos, acumulador, pila)
+      faltas_final = set_periodos_faltas(faltas_arr, periodo_mapa)
+      faltas.concat(faltas_final)
+
+      periodos(tablas, parrafos, acumulador, pila, faltas)
     else
       acumulador << boletas
-      periodos(tablas, parrafos, acumulador, pila)
+      periodos(tablas, parrafos, acumulador, pila, faltas)
     end
+  end
+
+  def self.set_periodos_faltas(faltas_arr, periodo_mapa)
+    faltas_arr.each do |f|
+      f[:periodo] = {
+        mes_inicio: periodo_mapa[:mes_inicio],
+        mes_final: periodo_mapa[:mes_final],
+        year: periodo_mapa[:year]
+      }
+    end 
+    faltas_arr
   end
 
   def self.get_mapa(periodo, boletas)
@@ -43,19 +57,20 @@ class PeriodosParser
   def self.boletas(tabla, parrafo,  acumulador)
     tipo = parrafo.content
     boletas = []
+    faltas = []
 
     rows = tabla.xpath("tr") 
     boletas_rows = rows[2..-4]
     boletas_rows.each_with_index do |b, i|
       if i.even? then
         celdas = b.xpath("td")
-        nom_materia = celdas[1].content
-        profesor = celdas[-1].content
+        nom_materia = celdas[1].content.strip
+        profesor = celdas[-1].content.strip
         parcial1 = celdas[4].content.strip
         parcial2 = celdas[6].content.strip
         parcial3 = celdas[8].content.strip
         parcial4 = celdas[10].content.strip
-        faltas = celdas[11].content.strip
+        falta = get_faltas(celdas[11].content.strip, nom_materia)
         final = celdas[12].content.strip
         mapa = {
           tipo: tipo,
@@ -86,10 +101,19 @@ class PeriodosParser
           ]
         }
        boletas << mapa 
+       faltas << falta
       end
     end
     boletas << acumulador.last.pop unless acumulador.empty?
-    return boletas 
+    return boletas, faltas
+  end
+
+  def self.get_faltas(faltas, nom_materia)
+    mapa = {
+      cantidad: faltas,
+      materia: nom_materia
+    }
+    mapa
   end
 
   def self.parsear(page)
@@ -99,8 +123,8 @@ class PeriodosParser
     info = tablas.shift
     info_mapa = self.get_informacion(info)
 
-    periodos_arr = self.periodos(tablas, parrafos)
-    periodos_arr
+    periodos_arr, faltas_arr = self.periodos(tablas, parrafos)
+    return periodos_arr, faltas_arr
   end
 
   def self.get_periodo(periodo)
