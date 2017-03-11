@@ -12,13 +12,13 @@ class Navegador
   @@pag_periodos
   @@pag_creditos
   @@matricula
+  @@clave
 
   @@url_terminacion
 
   @@agent
 
-  def initialize(matricula)
-
+  def initialize(matricula, clave)
     @@url = "http://207.249.157.32/cgi-bin/r.cgi/Consulta/"
     @@url_principal = "principal.r"
     @@url_terminacion = "?sistema=1&matricula="
@@ -27,23 +27,26 @@ class Navegador
     @@pag_periodos = "w0400301.r"
     @@pag_creditos = "w0600101.r"
     @@matricula = matricula.to_s
+    @@clave = clave.to_s
 
     @@agent = Mechanize.new
     @@agent.user_agent_alias = 'Mac Safari'
   end
 
-  def login(params)
+  def login
     page = @@agent.get(@@url + @@url_principal)
     form = page.form('form1')
     page = @@agent.submit(form)
 
     form = page.form('form1')
-    form.matricula = params[:clave]
-    form.nip = params[:password]
+    form.matricula = @@matricula
+    form.nip = @@clave
     page = @@agent.submit(form)
-    menu = page.frames[1].click
-    # temp
-    horario
+    if page.css(".errormensaje").count < 1 then
+      return true
+    else
+      return false
+    end
     # Como unir todos los jsons:
     # http://stackoverflow.com/questions/13990523/how-to-append-json-objects-together-in-ruby
   end
