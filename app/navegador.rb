@@ -2,6 +2,7 @@ require 'mechanize'
 require 'json'
 require_relative 'parser/horario'
 require_relative 'parser/periodos'
+require_relative 'parser/creditos'
 
 class Navegador
 
@@ -24,7 +25,7 @@ class Navegador
     @@pag_principal = "w0400501.r"
     @@pag_horario = "w0400501.r"
     @@pag_periodos = "w0400301.r"
-    @@pag_creditos = "w600101.r"
+    @@pag_creditos = "w0600101.r"
     @@matricula = matricula.to_s
 
     @@agent = Mechanize.new
@@ -63,7 +64,13 @@ class Navegador
     page = @@agent.get(url)
     periodos_arr, faltas_arr = PeriodosParser.parsear(page)
     return periodos_arr, faltas_arr
-    #page
+  end
+
+  def creditos
+    url = get_url(@@pag_creditos)
+    page = @@agent.get(url)
+    creditos = CreditosParser.parsear(page)
+    creditos
   end
 
 private
