@@ -1,5 +1,6 @@
 require 'json'
 class Router < Sinatra::Base
+  set :server, 'webrick'
 
   get '/' do
     "Hello World"
