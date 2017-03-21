@@ -1,6 +1,7 @@
 class Formateador
 
-  def initialize
+  def self.formatear(matricula, password, informacion, creditos, periodos, clases, faltas)
+
   end
 
   def ejemplo

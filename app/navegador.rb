@@ -1,8 +1,8 @@
 require 'mechanize'
-require 'json'
 require_relative 'parser/horario'
 require_relative 'parser/periodos'
 require_relative 'parser/creditos'
+require_relative 'parser/informacion'
 
 class Navegador
 
@@ -11,6 +11,7 @@ class Navegador
   @@pag_horario
   @@pag_periodos
   @@pag_creditos
+  @@pag_informacion
   @@matricula
   @@clave
 
@@ -26,6 +27,7 @@ class Navegador
     @@pag_horario = "w0400501.r"
     @@pag_periodos = "w0400301.r"
     @@pag_creditos = "w0600101.r"
+    @@pag_informacion = "w0400701.r"
     @@matricula = matricula.to_s
     @@clave = clave.to_s
 
@@ -74,6 +76,13 @@ class Navegador
     page = @@agent.get(url)
     creditos = CreditosParser.parsear(page)
     creditos
+  end
+
+  def informacion
+    url = get_url(@@pag_informacion)
+    page = @@agent.get(url)
+    informacion = InformacionParser.parsear(page)
+    informacion
   end
 
 private
