@@ -124,7 +124,7 @@ class PeriodosParser
     info_mapa = self.get_informacion(info)
 
     periodos_arr, faltas_arr = self.periodos(tablas, parrafos)
-    return periodos_arr, faltas_arr
+    return periodos_arr, faltas_arr, info_mapa
   end
 
   def self.get_periodo(periodo)

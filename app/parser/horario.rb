@@ -15,9 +15,9 @@ class HorarioParser
   end
 
 private
-    def materia(materia)
+    def self.materia(materia)
       clases = []
-      nombre = materia[1]
+      nombre = materia[1].capitalize
       # grupo = if !materia[8].empty? then materia[8] else nil end
       # salon = if !materia[9].empty? then materia[9] else nil end
       profesor = materia[10]
@@ -28,12 +28,12 @@ private
       clases
     end
 
-    def clase(dia, horas, materia, profesor)
+    def self.clase(dia, horas, materia, profesor)
       divididas = horas.split("-")
       estructura = {
         dia: dia,
-        hora_inicio: divididas[0],
-        hora_final: divididas[1],
+        hora_inicio: divididas[0].to_i,
+        hora_final: divididas[1].to_i,
         materia: materia,
         profesor: profesor
       }

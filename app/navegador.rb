@@ -3,6 +3,7 @@ require_relative 'parser/horario'
 require_relative 'parser/periodos'
 require_relative 'parser/creditos'
 require_relative 'parser/informacion'
+require_relative 'formateador'
 
 class Navegador
 
@@ -53,6 +54,15 @@ class Navegador
     # http://stackoverflow.com/questions/13990523/how-to-append-json-objects-together-in-ruby
   end
 
+  def parsear
+    horario = self.horario
+    periodos, faltas, info_map = self.periodos
+    creditos = self.creditos
+    informacion = self.informacion
+    mapa = Formateador.formatear(@@matricula, @@clave, info_map, informacion, horario, periodos, faltas, creditos)
+    mapa
+  end
+
   def horario
     url = get_url(@@pag_horario)
     page = @@agent.get(url)
@@ -67,8 +77,8 @@ class Navegador
   def periodos
     url = get_url(@@pag_periodos)
     page = @@agent.get(url)
-    periodos_arr, faltas_arr = PeriodosParser.parsear(page)
-    return periodos_arr, faltas_arr
+    periodos_arr, faltas_arr, info_map = PeriodosParser.parsear(page)
+    return periodos_arr, faltas_arr, info_map
   end
 
   def creditos

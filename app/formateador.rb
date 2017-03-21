@@ -1,7 +1,25 @@
 class Formateador
 
-  def self.formatear(matricula, password, informacion, creditos, periodos, clases, faltas)
-
+  def self.formatear(matricula, clave, info_map, informacion, horario, periodos, faltas, creditos)
+    mapa = {
+      usuario: {
+        matricula: matricula,
+        clave: clave
+      },
+      nombre: informacion[:nombre],
+      apellido_p: informacion[:apellido_p],
+      apellido_m: informacion[:apellido_m],
+      sexo: informacion[:sexo],
+      email: informacion[:email],
+      matricula: matricula,
+      programa: info_map[:programa],
+      campus: info_map[:campus],
+      creditos: creditos,
+      periodos: periodos,
+      horario: horario,
+      faltas: faltas
+    }
+    mapa
   end
 
   def ejemplo
