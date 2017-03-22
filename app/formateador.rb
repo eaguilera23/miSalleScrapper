@@ -22,37 +22,38 @@ class Formateador
     mapa
   end
 
-  def ejemplo
+  def self.ejemplo
     ejemplo = {
       usuario: {
-        clave: 00060567,
-        password: "Eao60567"
+        matricula: 00060567,
+        password: "JPJ60567"
       },
-      nombre: "Eduardo Aguilera",
+      nombre: "Jesús",
+      apellido_p: "Perez",
+      apellido_m: "Jimenez",
       matricula: 60567,
-      programa: "Las torres",
-      campus: "La Salle",
+      programa: "Carrera",
+      campus: "Torres",
       creditos: [{
-        tipo: "solidaridad",
-        cantidad: 8
+        tipo: "Solidaridad",
+        necesarios: 30,
+        actuales: 8
       },
       {
-        tipo: "deportivo",
-        cantidad: 9
+        tipo: "Deportivo",
+        necesarios: 30,
+        actuales: 9
       }],
       periodos: [
         {
-          mes_inicio: "AGO",
-          mes_final: "JUN",
-          year: 1996,
+          mes_inicio: 8,
+          mes_final: 12,
+          year: 2017,
           boletas: [
             {
-              tipo: "ORDINARIO",
+              tipo: 1,
               materia: "mate",
-              profesor: {
-                nombre: "Luis",
-                apellidos: "Vazquez"
-              },
+              profesor: "Enrique Perez Perez",
               parciales: [
                 {
                   numero: 1,
@@ -61,30 +62,40 @@ class Formateador
                 {
                   numero: 2,
                   calificacion: 8.3
-                }
+                },
+                {
+                  numero: 3,
+                  calificacion: 8.8
+                },
+                {
+                  numero: 4,
+                  calificacion: 8.4
+                },
+                {
+                  numero: 5,
+                  calificacion: 8.9
+                },
               ]
             }
           ]
         }
       ],
-      clases: [
+      horario: [
         {
           dia: 1,
           hora_inicio: 14,
           hora_final: 16,
           materia: "mate",
-          profesor: {
-            nombre: "Luis",
-            apellidos: "Vazquez"
-          }
+          profesor: "Pepe Perez Gonzales"
         }
       ],
       faltas: [
         {
           materia: "mate",
+          cantidad: 3,
           periodo: {
-            mes_inicio: "AGO",
-            mes_final: "JUN",
+            mes_inicio: 8,
+            mes_final: 12,
             year: 1996
           }
         }
