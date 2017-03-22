@@ -17,7 +17,7 @@ class Router < Sinatra::Base
     nav = Navegador.new(@matricula, @password)
     if nav.login then
       info = nav.parsear
-      content_type :json
+      content_type :json, :charset => 'utf-8'
       info.to_json
     else
       "No man"
@@ -34,7 +34,7 @@ class Router < Sinatra::Base
     nav = Navegador.new(@matricula, @password)
     if nav.login then
       info = nav.parsear
-      content_type :json
+      content_type :json, :charset => 'utf-8'
       info.to_json
     else
       "No man"
@@ -44,11 +44,7 @@ class Router < Sinatra::Base
   end
 
   get '/ejemplo' do
-    content_type :json
-    Formateador.ejemplo.to_json
-  end
-
-  get 'estructura' do
-
+    content_type :json, :charset => 'utf-8'
+    JSON[Formateador.ejemplo]
   end
 end
