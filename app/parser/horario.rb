@@ -1,4 +1,5 @@
 require 'nokogiri'
+require_relative '../formateador'
 
 class HorarioParser
 
@@ -34,8 +35,8 @@ private
         dia: dia,
         hora_inicio: divididas[0].to_i,
         hora_final: divididas[1].to_i,
-        materia: materia,
-        profesor: profesor
+        materia: Formateador.string(materia),
+        profesor: Formateador.string(profesor)
       }
       estructura
     end

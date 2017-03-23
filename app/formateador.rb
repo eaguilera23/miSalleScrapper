@@ -103,4 +103,20 @@ class Formateador
     }
     ejemplo
   end
+
+  def self.string(string)
+    resultado = ""
+    if string.encoding.to_s == "UTF-8" then
+      # puts "String a convertir: " + string + " con encoding: " + string.encoding.to_s
+      resultado = string
+      # puts "El resultado es: " + resultado + " con encoding: " + resultado.encoding.to_s
+    elsif string.encoding.to_s == "Windows-1252"
+      # puts "String a convertir: " + string + " con encoding: " + string.encoding.to_s
+      resultado = string.force_encoding("utf-8")
+      # puts "El resultado es: " + resultado + " con encoding: " + resultado.encoding.to_s
+    else
+      puts "El encoding es: " + string.encoding.to_s + " de: " + string
+    end
+    resultado
+  end
 end

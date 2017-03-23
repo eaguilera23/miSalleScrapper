@@ -1,5 +1,5 @@
 require 'nokogiri'
-require 'pry'
+require_relative '../formateador'
 
 class PeriodosParser
   def self.get_informacion(tabla)
@@ -10,8 +10,8 @@ class PeriodosParser
     campus_array = rows[1].xpath("td")[1].content.split
     campus = campus_array[1..-1].join(" ")
     mapa = {
-      programa: programa,
-      campus: campus
+      programa: programa.capitalize,
+      campus: campus.capitalize
     }
     mapa
   end
@@ -74,8 +74,8 @@ class PeriodosParser
         final = celdas[12].content.strip
         mapa = {
           tipo: tipo,
-          materia: nom_materia,
-          profesor: profesor,
+          materia: Formateador.string(nom_materia.force_encoding("cp1252")),
+          profesor: Formateador.string(profesor),
           parciales: [
             {
               numero: 1,
@@ -111,7 +111,7 @@ class PeriodosParser
   def self.get_faltas(faltas, nom_materia)
     mapa = {
       cantidad: faltas,
-      materia: nom_materia
+      materia: Formateador.string(nom_materia.force_encoding("cp1252"))
     }
     mapa
   end

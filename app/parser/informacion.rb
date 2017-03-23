@@ -1,3 +1,4 @@
+require_relative '../formateador'
 class InformacionParser
 
   def self.parsear(pagina)
@@ -19,9 +20,11 @@ class InformacionParser
 
   def self.get_mapa(ap, am, nombre, sexo, email)
     mapa = {
-      nombre: nombre,
-      apellido_p: ap,
-      apellido_m: am,
+      # La informacion al parecer está guardada en La Salle con encoding cp1252,
+      # pero Nokogiri la toma como utf-8. 
+      nombre: Formateador.string(nombre.force_encoding("cp1252").encode("utf-8")),
+      apellido_p: Formateador.string(ap.force_encoding("cp1252").encode("utf-8")),
+      apellido_m: Formateador.string(am),
       sexo: sexo,
       email: email
     }
