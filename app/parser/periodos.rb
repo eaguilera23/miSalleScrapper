@@ -128,10 +128,17 @@ class PeriodosParser
   end
 
   def self.get_periodo(periodo)
+    # TODO: Este wey no sirve 59789
     arr = periodo.split
-    mes_inicio = get_mes_num(arr[1].strip)
-    mes_final = get_mes_num(arr[3].strip)
-    year = arr[4].to_i
+    if arr.count == 5 then
+      mes_inicio = get_mes_num(arr[1].strip)
+      mes_final = if arr[3].class == nil.class then 0 else get_mes_num(arr[3][0..2].strip) end
+      year = arr[4].to_i
+    else
+      mes_inicio = get_mes_num(arr[1][0..2].strip)
+      mes_final = 0
+      year = arr[2].to_i
+    end
     map = {
       mes_inicio: mes_inicio,
       mes_final: mes_final,
