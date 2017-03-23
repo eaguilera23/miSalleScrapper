@@ -43,6 +43,16 @@ class Router < Sinatra::Base
     # http://stackoverflow.com/questions/22597989/how-to-define-a-class-in-ruby-when-using-sequel
   end
 
+  get '/test' do
+    @matricula = params["clave"]
+    @password = "jaja"
+
+    nav = Navegador.new(@matricula, @password)
+    info = nav.parsear
+    content_type :json, :charset => 'utf-8'
+    info.to_json
+  end
+
   get '/ejemplo' do
     content_type :json, :charset => 'utf-8'
     JSON[Formateador.ejemplo]
