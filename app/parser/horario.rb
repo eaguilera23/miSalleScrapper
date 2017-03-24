@@ -2,7 +2,17 @@ require 'nokogiri'
 require_relative '../formateador'
 
 class HorarioParser
+  #   *Módulo*
+  # Este módulo se encarga de parsear la página que muestra el horario de un alumno
+  # Url de la página: http://207.249.157.32/cgi-bin/r.cgi/Consulta/w0400501.r?sistema=X&matricula=XXXXX
 
+  # Este método recorre la tabla del horario para interacturar con cada materia
+  # * *Argumentos*  :
+  #   - *table* -> La tabla que contiene el horario del alumno
+  # * *Retorna*     :
+  #   - *horario* -> Un arreglo con todas las clases obtenidas. Para ver el mapa que retorna,
+  #                  revisar el método self.clase
+  # TODO: En lugar de recibir una tabla debería de recibir toda la página. (SoC)
   def self.parsear(table)
     horario = []
     table.xpath('tr').each_with_index do |tr, i|

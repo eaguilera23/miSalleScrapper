@@ -1,6 +1,7 @@
 require 'nokogiri'
 
 class CreditosParser
+  #   *Módulo* 
   # Este módulo se encarga de parsear la página que muestra los créditos de un alumno
   # Url de la página: http://207.249.157.32/cgi-bin/r.cgi/Consulta/w0600101.r?sistema=1&matricula=XXXXX
   

@@ -1,6 +1,20 @@
 require_relative '../formateador'
-class InformacionParser
 
+class InformacionParser
+  #   *Módulo*
+  # Este módulo se encarga de parsear la página que muestra la información del alumno
+  # Url de la página: http://207.249.157.32/cgi-bin/r.cgi/Consulta/w0400701.r?sistema=X&matricula=XXXXX
+
+  # Este método obtiene de la página la información escencial del alumno. Que es:
+  # - Apellido Paterno
+  # - Apellido Materno
+  # - Nombre
+  # - Sexo
+  # - Email 
+  # * *Argumentos*  :
+  #   - +pagina+ -> Pagina que contiene la informacíon del alumno
+  # * *Retorna*     :
+  #   - +mapa+ -> Mapa con la información formateada del alumno. Para saber su estructura, consultar self.get_mapa
   def self.parsear(pagina)
     tabla = pagina.xpath("//table")[0]
     rows = tabla.xpath("tr")

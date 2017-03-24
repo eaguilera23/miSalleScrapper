@@ -2,6 +2,36 @@ require 'nokogiri'
 require_relative '../formateador'
 
 class PeriodosParser
+  #   *Módulo*
+  # Este módulo se encargade obtener la información básica del alumno y sus calificaciones
+  # Url de la página: http://207.249.157.32/cgi-bin/r.cgi/Consulta/w0400301.r?sistema=X&matricula=XXXXX
+
+  # Este método se encarga de parsear la información, los periodos y las faltas
+  # * *Argumentos*  :
+  #   - +page+ -> Pagina que contiene toda la información a obtener
+  # * *Retorna*     :
+  #   - +periodos_arr+ -> Un arreglo con mapas, siendo los periodos obtenidos
+  #   - +faltas_arr+ -> Un arreglo con mapas, siendo las faltas obtenidas
+  #   - +info_mapa+ -> Un mapa conteniendo la información básica del alumno. Consultar self.get_informacion
+  def self.parsear(page)
+    tablas = page.xpath("//table")
+    parrafos = page.xpath("//p")[1..-6]
+
+    info = tablas.shift
+    info_mapa = self.get_informacion(info)
+
+    periodos_arr, faltas_arr = self.periodos(tablas, parrafos)
+    return periodos_arr, faltas_arr, info_mapa
+  end
+
+  # Este método obtiene la información básica del alumno que se encuentra en la página de periodos
+  # Información básica:
+  #   - Programa
+  #   - Campus
+  # * *Argumentos*  :
+  #   - +tabla+ -> La tabla que contiene la información
+  # * *Retorna*     :
+  #   - +mapa+ -> El mapa con la información
   def self.get_informacion(tabla)
     rows = tabla.xpath("tr")
     programa_array = rows[1].xpath("td")[0].content.split
@@ -16,6 +46,26 @@ class PeriodosParser
     mapa
   end
 
+  # Este método se encarga de obtener los periodos de un alumno utilizando recursión.
+  # Esto incluye periodos que incluyen extraordinarios, o periodos 
+  # exclusivamente dedicados a un extraordinario
+  # * *Argumentos*  :
+  #   - +tablas+ -> Un arreglo que en cada posición contiene una tabla, esta siendo 1 bloque de calificaciones
+  #   - +parrafos+ -> Un arreglo que contiene el texto que acompaña cada bloque de calificaciones.
+  #                   Una tabla como mínimo viene acompañada de un parrafo, que describe su tipo.
+  #                   Si el parrafo contiene la palabra `Periodo` significa que ese periodo se cierra,
+  #                   y el siguiente es otro periodo completamente nuevo.
+  #                   Si no, significa que existieron calificaciones extraordinarias dentro de ese periodo.
+  #   - +acumulador+ -> Este arreglo contendrá los extraordinarios, o calificaciones que se encuentran en el
+  #                     mismo periodo, pero pertenecían a otra tabla. POR DEFAULT: Un arreglo vació
+  #   - +pila+ -> Esta función al ser llamada recursivamente, necesita estar recibiendo los periodos
+  #               que ya han sido formateados. POR DEFAULT: Un arreglo vacío.
+  #   - +faltas+ -> Se extraen las faltas de cada periodo, siendo pasadas ya formateadas en este argumento
+  #                 para cada iteración que la recursividad genere.
+  # * *Retorna*     :
+  #   Este método retornará en caso de que no exista otro periodo en el argumento +tablas+.
+  #   - +pila+ -> Un arreglo con mapas, siendo el conjunto de periodos obtenidos
+  #   - +faltas+ -> Un arreglo con mapas, siendo el conjunto de faltas obtenidas de todos los periodos
   def self.periodos(tablas, parrafos, acumulador = [], pila = [], faltas = [])
     if !tablas.empty? then boletas, faltas_arr = self.boletas(tablas.pop, parrafos.pop, acumulador) else return pila, faltas end
 
@@ -33,27 +83,14 @@ class PeriodosParser
     end
   end
 
-  def self.set_periodos_faltas(faltas_arr, periodo_mapa)
-    faltas_arr.each do |f|
-      f[:periodo] = {
-        mes_inicio: periodo_mapa[:mes_inicio],
-        mes_final: periodo_mapa[:mes_final],
-        year: periodo_mapa[:year]
-      }
-    end 
-    faltas_arr
-  end
-
-  def self.get_mapa(periodo, boletas)
-    mapa = {
-      mes_inicio: periodo[:mes_inicio],
-      mes_final: periodo[:mes_final],
-      year: periodo[:year],
-      boletas: boletas
-    }
-    mapa
-  end
-
+  # Este método se encarga de obtener las boletas de un periodo
+  # * *Argumentos*  :
+  #   - +tabla+ -> Un elemento <table> de Nokogiri, siendo el periodo a analizar
+  #   - +parrafo+ -> El tipo de periodo que se está analizando. Puede ser Ordinario o Extraordinario
+  #   - +acumulador+ -> En caso de que el periodo haya tenido extraordinarios, estos se presentarán aquí
+  # * *Retorna*     :
+  #   - +boletas+ -> Un arreglo con mapas, siendo todas las boletas obtenidas del periodo, incluyendo el +acumulador+
+  #   - +faltas+ -> Un arreglo con mapas, siendo todas las faltas obtenidas del periodo
   def self.boletas(tabla, parrafo,  acumulador)
     tipo = parrafo.content
     boletas = []
@@ -72,6 +109,7 @@ class PeriodosParser
         parcial4 = celdas[10].content.strip
         falta = get_faltas(celdas[11].content.strip, nom_materia)
         final = celdas[12].content.strip
+        # TODO: Refactorear esto a un método único
         mapa = {
           tipo: tipo,
           materia: Formateador.string(nom_materia.force_encoding("cp1252")),
@@ -108,6 +146,28 @@ class PeriodosParser
     return boletas, faltas
   end
 
+  def self.set_periodos_faltas(faltas_arr, periodo_mapa)
+    faltas_arr.each do |f|
+      f[:periodo] = {
+        mes_inicio: periodo_mapa[:mes_inicio],
+        mes_final: periodo_mapa[:mes_final],
+        year: periodo_mapa[:year]
+      }
+    end 
+    faltas_arr
+  end
+
+  def self.get_mapa(periodo, boletas)
+    mapa = {
+      mes_inicio: periodo[:mes_inicio],
+      mes_final: periodo[:mes_final],
+      year: periodo[:year],
+      boletas: boletas
+    }
+    mapa
+  end
+
+
   def self.get_faltas(faltas, nom_materia)
     mapa = {
       cantidad: faltas,
@@ -116,35 +176,30 @@ class PeriodosParser
     mapa
   end
 
-  def self.parsear(page)
-    tablas = page.xpath("//table")
-    parrafos = page.xpath("//p")[1..-6]
-
-    info = tablas.shift
-    info_mapa = self.get_informacion(info)
-
-    periodos_arr, faltas_arr = self.periodos(tablas, parrafos)
-    return periodos_arr, faltas_arr, info_mapa
-  end
-
+  # Este método obtiene la duración de un periodo
+  # * *Argumentos*  :
+  #   - +periodo+ -> El texto que equivale a todo el periodo.
+  # * *Retorna*     :
+  #   - +mapa+ -> Un mapa con la duración del periodo
   def self.get_periodo(periodo)
-    # TODO: Este wey no sirve 59789
     arr = periodo.split
+    # Si el texto se presenta así: Periodo: AGO - DIC 2016
     if arr.count == 5 then
       mes_inicio = get_mes_num(arr[1].strip)
       mes_final = if arr[3].class == nil.class then 0 else get_mes_num(arr[3][0..2].strip) end
       year = arr[4].to_i
+    # Si el texto se presenta así: Periodo: AGOSTO 2016
     else
       mes_inicio = get_mes_num(arr[1][0..2].strip)
       mes_final = 0
       year = arr[2].to_i
     end
-    map = {
+    mapa = {
       mes_inicio: mes_inicio,
       mes_final: mes_final,
       year: year
     }
-    map
+    mapa
   end
 
   def self.get_mes_num(mes)
