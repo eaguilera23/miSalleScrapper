@@ -1,7 +1,14 @@
 require 'nokogiri'
 
 class CreditosParser
+  # Este módulo se encarga de parsear la página que muestra los créditos de un alumno
+  # Url de la página: http://207.249.157.32/cgi-bin/r.cgi/Consulta/w0600101.r?sistema=1&matricula=XXXXX
   
+  # Este método contiene toda la lógica para obtener los créditos
+  # * *Argumentos*  :
+  #   - *page* -> Una página que se puede parsear con Nokogiri
+  # * *Retorna*   :
+  #   - *creditos* -> Arreglo con la información de todos los créditos
   def self.parsear(page)
     tabla = page.xpath("//table")
     rows = tabla.xpath("tr")

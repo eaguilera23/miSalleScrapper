@@ -8,9 +8,12 @@ class Router < Sinatra::Base
     "Hello World"
   end
 
+  # Modelos con sinatra
+  # http://stackoverflow.com/questions/22597989/how-to-define-a-class-in-ruby-when-using-sequel
+
   post '/alumno' do
     @json = JSON.parse(request.body.read)
-    @matricula = @json["clave"]
+    @matricula = @json["matricula"]
     @password = @json["password"]
 
     nav = Navegador.new(@matricula, @password)
@@ -24,8 +27,12 @@ class Router < Sinatra::Base
     end
   end
 
+  ###################################
+  # RUTAS PARA FACILITAR DESARROLLO #
+  ###################################
+  
   get '/alumno' do
-    @matricula = params["clave"]
+    @matricula = params["matricula"]
     @password = params["password"]
 
     nav = Navegador.new(@matricula, @password)
@@ -37,12 +44,10 @@ class Router < Sinatra::Base
       status 420
       ErrorHelper.login.to_json
     end
-    # Modelos con sinatra
-    # http://stackoverflow.com/questions/22597989/how-to-define-a-class-in-ruby-when-using-sequel
   end
 
   get '/test' do
-    @matricula = params["clave"]
+    @matricula = params["matricula"]
     @password = "jaja"
 
     nav = Navegador.new(@matricula, @password)

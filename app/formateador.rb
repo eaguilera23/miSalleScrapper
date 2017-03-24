@@ -1,10 +1,25 @@
 class Formateador
+  # Este módulo se encarga de darle formato a las estructuras que datos que el sistema utiliza
 
-  def self.formatear(matricula, clave, info_map, informacion, horario, periodos, faltas, creditos)
+  # Se encarga de dar formato a la estructura de la información completa del alumno
+  #
+  # * *Argumentos*  :
+  #   - +matricula+ -> La matricula del alumno
+  #   - +password+ -> El password del alumno
+  #   - +info_map+ -> Un mapa que contiene el programa y el campus del alumno
+  #   - +informacion+ -> Un mapa con la información personal del alumno
+  #   - +horario+ -> Un arreglo con las clases del alumno
+  #   - +periodos+ -> Un arreglo con los periodos del alumno
+  #   - +faltas+ -> Un arreglo con las faltas del alumno
+  #   - +creditos+ -> Un arreglo con los créditos del alumno
+  # * *Retorna*     :
+  #   - +mapa+ -> Un mapa con toda la informacion del alumno
+
+  def self.alumno(matricula, password, info_map, informacion, horario, periodos, faltas, creditos)
     mapa = {
       usuario: {
         matricula: matricula,
-        clave: clave
+        password: password
       },
       nombre: informacion[:nombre],
       apellido_p: informacion[:apellido_p],
@@ -22,6 +37,9 @@ class Formateador
     mapa
   end
 
+  ##############
+  # DESARROLLO #
+  ##############
   def self.ejemplo
     ejemplo = {
       usuario: {

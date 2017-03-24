@@ -14,13 +14,13 @@ class Navegador
   @@pag_creditos
   @@pag_informacion
   @@matricula
-  @@clave
+  @@password
 
   @@url_terminacion
 
   @@agent
 
-  def initialize(matricula, clave)
+  def initialize(matricula, password)
     @@url = "http://207.249.157.32/cgi-bin/r.cgi/Consulta/"
     @@url_principal = "principal.r"
     @@url_terminacion = "?sistema=1&matricula="
@@ -30,7 +30,7 @@ class Navegador
     @@pag_creditos = "w0600101.r"
     @@pag_informacion = "w0400701.r"
     @@matricula = matricula.to_s
-    @@clave = clave.to_s
+    @@password = password.to_s
 
     @@agent = Mechanize.new
     @@agent.user_agent_alias = 'Mac Safari'
@@ -43,7 +43,7 @@ class Navegador
 
     form = page.form('form1')
     form.matricula = @@matricula
-    form.nip = @@clave
+    form.nip = @@password
     page = @@agent.submit(form)
     if page.css(".errormensaje").count < 1 then
       return true
@@ -59,7 +59,7 @@ class Navegador
     periodos, faltas, info_map = self.periodos
     creditos = self.creditos
     informacion = self.informacion
-    mapa = Formateador.formatear(@@matricula, @@clave, info_map, informacion, horario, periodos, faltas, creditos)
+    mapa = Formateador.alumno(@@matricula, @@password, info_map, informacion, horario, periodos, faltas, creditos)
     mapa
   end
 
