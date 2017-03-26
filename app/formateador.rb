@@ -21,14 +21,16 @@ class Formateador
         matricula: matricula,
         password: password
       },
-      nombre: informacion[:nombre],
-      apellido_p: informacion[:apellido_p],
-      apellido_m: informacion[:apellido_m],
-      sexo: informacion[:sexo],
-      email: informacion[:email],
-      matricula: matricula,
-      programa: info_map[:programa],
-      campus: info_map[:campus],
+      informacion: {
+        nombre: informacion[:nombre],
+        apellido_p: informacion[:apellido_p],
+        apellido_m: informacion[:apellido_m],
+        sexo: informacion[:sexo],
+        email: informacion[:email],
+        matricula: matricula,
+        programa: info_map[:programa],
+        campus: info_map[:campus],
+      },
       creditos: creditos,
       periodos: periodos,
       horario: horario,
@@ -77,22 +79,26 @@ class Formateador
         matricula: 00060567,
         password: "JPJ60567"
       },
-      nombre: "Jesús",
-      apellido_p: "Perez",
-      apellido_m: "Jimenez",
-      matricula: 60567,
-      programa: "Carrera",
-      campus: "Torres",
+      informacion: {
+        nombre: "Jesús",
+        apellido_p: "Perez",
+        apellido_m: "Jimenez",
+        sexo: "F",
+        email: "lalo@yopmail.com",
+        matricula: 60567,
+        programa: "Carrera",
+        campus: "Torres",
+      },
       creditos: [{
         tipo: "Solidaridad",
         necesarios: 30,
         actuales: 8
-      },
-      {
-        tipo: "Deportivo",
-        necesarios: 30,
-        actuales: 9
-      }],
+        },
+        {
+          tipo: "Deportivo",
+          necesarios: 30,
+          actuales: 9
+        }],
       periodos: [
         {
           mes_inicio: 8,
