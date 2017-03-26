@@ -27,16 +27,16 @@ class Router < Sinatra::Base
     end
   end
 
-  post '/calificaciones' do
+  post '/actualizar' do
     @json = JSON.parse(request.body.read)
     @matricula = @json["matricula"]
     @password = @json["password"]
 
     nav = Navegador.new(@matricula, @password)
     if nav.login then
-      periodos = nav.parsear_periodos
+      info = nav.parsear_actualizar
       content_type :json, :charset => 'utf-8'
-      periodos.to_json
+      info.to_json
     else
       status 420
       ErrorHelper.login.to_json
@@ -61,15 +61,15 @@ class Router < Sinatra::Base
     end
   end
 
-  get '/calificaciones' do
+  get '/actualizar' do
     @matricula = params["matricula"]
     @password = params["password"]
 
     nav = Navegador.new(@matricula, @password)
     if nav.login then
-      periodos = nav.parsear_periodos
+      info = nav.parsear_actualizar
       content_type :json, :charset => 'utf-8'
-      periodos.to_json
+      info.to_json
     else
       status 420
       ErrorHelper.login.to_json

@@ -64,9 +64,10 @@ class Navegador
     mapa
   end
 
-  def parsear_periodos
+  def parsear_actualizar
     periodos, faltas = self.periodos
-    mapa = Formateador.periodos(periodos, faltas)
+    creditos = self.creditos
+    mapa = Formateador.actualizar(periodos, faltas, creditos)
     mapa
   end
 

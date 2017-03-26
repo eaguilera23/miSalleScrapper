@@ -39,10 +39,11 @@ class Formateador
     mapa
   end
 
-  def self.periodos(periodos, faltas)
+  def self.actualizar(periodos, faltas, creditos)
     mapa = {
       periodos: periodos,
-      faltas: faltas
+      faltas: faltas,
+      creditos: creditos
     }
     mapa
   end
