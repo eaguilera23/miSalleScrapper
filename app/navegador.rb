@@ -74,10 +74,7 @@ class Navegador
   def horario
     url = get_url(@@pag_horario)
     page = @@agent.get(url)
-    # Tabla que contiene las horas de las clases
-    table = page.xpath("//table")[2]
-    # arreglo que contendra todas las clases
-    clases = HorarioParser.parsear(table)
+    clases = HorarioParser.parsear(page)
     clases
   end
 
