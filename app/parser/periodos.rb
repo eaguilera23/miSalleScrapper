@@ -112,7 +112,7 @@ class PeriodosParser
         # TODO: Refactorear esto a un método único
         mapa = {
           tipo: tipo,
-          materia: Formateador.string(nom_materia.force_encoding("cp1252")),
+          materia: Formateador.string(nom_materia.force_encoding("cp1252")).capitalize,
           profesor: Formateador.string(profesor),
           parciales: [
             {
@@ -171,7 +171,7 @@ class PeriodosParser
   def self.get_faltas(faltas, nom_materia)
     mapa = {
       cantidad: faltas,
-      materia: Formateador.string(nom_materia.force_encoding("cp1252"))
+      materia: Formateador.string(nom_materia.force_encoding("cp1252")).capitalize
     }
     mapa
   end

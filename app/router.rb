@@ -27,6 +27,21 @@ class Router < Sinatra::Base
     end
   end
 
+  post '/calificaciones' do
+    @json = JSON.parse(request.body.read)
+    @matricula = @json["matricula"]
+    @password = @json["password"]
+
+    nav = Navegador.new(@matricula, @password)
+    if nav.login then
+      periodos = nav.parsear_periodos
+      content_type :json, :charset => 'utf-8'
+      periodos.to_json
+    else
+      status 420
+      ErrorHelper.login.to_json
+    end
+  end
   ###################################
   # RUTAS PARA FACILITAR DESARROLLO #
   ###################################
@@ -40,6 +55,21 @@ class Router < Sinatra::Base
       info = nav.parsear
       content_type :json, :charset => 'utf-8'
       info.to_json
+    else
+      status 420
+      ErrorHelper.login.to_json
+    end
+  end
+
+  get '/calificaciones' do
+    @matricula = params["matricula"]
+    @password = params["password"]
+
+    nav = Navegador.new(@matricula, @password)
+    if nav.login then
+      periodos = nav.parsear_periodos
+      content_type :json, :charset => 'utf-8'
+      periodos.to_json
     else
       status 420
       ErrorHelper.login.to_json

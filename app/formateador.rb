@@ -37,6 +37,14 @@ class Formateador
     mapa
   end
 
+  def self.periodos(periodos, faltas)
+    mapa = {
+      periodos: periodos,
+      faltas: faltas
+    }
+    mapa
+  end
+
   # El sitio de la salle guarda diferentes textos en diferentes encodings.
   # Todavía no se sabe si es problema directamente de La Salle, o cómo Nokogiri
   # interactua con el sitio. Todo esto para representar correctamente los acentos.
@@ -59,6 +67,7 @@ class Formateador
     end
     resultado
   end
+
   ##############
   # DESARROLLO #
   ##############
