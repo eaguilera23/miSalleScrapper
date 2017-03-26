@@ -12,7 +12,6 @@ class HorarioParser
   # * *Retorna*     :
   #   - *horario* -> Un arreglo con todas las clases obtenidas. Para ver el mapa que retorna,
   #                  revisar el método self.clase
-  # TODO: En lugar de recibir una tabla debería de recibir toda la página. (SoC)
   def self.parsear(page)
     horario = []
     table = page.xpath("//table")[2]

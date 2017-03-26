@@ -71,7 +71,7 @@ class PeriodosParser
 
     if parrafos.last.content.include?('Periodo') then 
       periodo = get_periodo(parrafos.pop.content)
-      periodo_mapa = get_mapa(periodo, boletas)
+      periodo_mapa = get_periodo_mapa(periodo, boletas)
       pila << periodo_mapa
       faltas_final = set_periodos_faltas(faltas_arr, periodo_mapa)
       faltas.concat(faltas_final)
@@ -109,37 +109,13 @@ class PeriodosParser
         parcial4 = celdas[10].content.strip
         falta = get_faltas(celdas[11].content.strip, nom_materia)
         final = celdas[12].content.strip
-        # TODO: Refactorear esto a un método único
-        mapa = {
-          tipo: tipo,
-          materia: Formateador.string(nom_materia.force_encoding("cp1252")).capitalize,
-          profesor: Formateador.string(profesor),
-          parciales: [
-            {
-              numero: 1,
-              calificacion: parcial1
-            },
-            {
-              numero: 2,
-              calificacion: parcial2
-            },
-            {
-              numero: 3,
-              calificacion: parcial3
-            },
-            {
-              numero: 4,
-              calificacion: parcial4
-            },
-            {
-              # Calificacion Final
-              numero: 5,
-              calificacion: final
-            }
-          ]
-        }
-       boletas << mapa 
-       faltas << falta
+
+        info = {tipo: tipo, nom_materia: nom_materia, profesor: profesor, parcial1: parcial1, parcial2: parcial2,
+                parcial3: parcial3, parcial4: parcial4, final: final}
+        mapa = get_mapa(info)
+
+        boletas << mapa 
+        faltas << falta
       end
     end
     boletas << acumulador.last.pop unless acumulador.empty?
@@ -157,7 +133,7 @@ class PeriodosParser
     faltas_arr
   end
 
-  def self.get_mapa(periodo, boletas)
+  def self.get_periodo_mapa(periodo, boletas)
     mapa = {
       mes_inicio: periodo[:mes_inicio],
       mes_final: periodo[:mes_final],
@@ -172,6 +148,38 @@ class PeriodosParser
     mapa = {
       cantidad: faltas,
       materia: Formateador.string(nom_materia.force_encoding("cp1252")).capitalize
+    }
+    mapa
+  end
+
+  def self.get_mapa(info)
+    mapa = {
+      tipo: info[:tipo],
+      materia: Formateador.string(info[:nom_materia].force_encoding("cp1252")).capitalize,
+      profesor: Formateador.string(info[:profesor]),
+      parciales: [
+        {
+          numero: 1,
+          calificacion: info[:parcial1]
+        },
+        {
+          numero: 2,
+          calificacion: info[:parcial2]
+        },
+        {
+          numero: 3,
+          calificacion: info[:parcial3]
+        },
+        {
+          numero: 4,
+          calificacion: info[:parcial4]
+        },
+        {
+          # Calificacion Final
+          numero: 5,
+          calificacion: info[:final]
+        }
+      ]
     }
     mapa
   end
