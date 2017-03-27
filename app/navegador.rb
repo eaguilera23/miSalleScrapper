@@ -102,19 +102,8 @@ class Navegador
   ##############
   # DESARROLLO #
   ##############
-  def initialize_matricula(matricula)
-    @@url = "http://207.249.157.32/cgi-bin/r.cgi/Consulta/"
-    @@url_principal = "principal.r"
-    @@url_terminacion = "?sistema=1&matricula="
-    @@pag_principal = "w0400501.r"
-    @@pag_horario = "w0400501.r"
-    @@pag_periodos = "w0400301.r"
-    @@pag_creditos = "w0600101.r"
-    @@pag_informacion = "w0400701.r"
-    @@matricula = matricula.to_s
-
-    @@agent = Mechanize.new
-    @@agent.user_agent_alias = 'Mac Safari'
+  def self.new_matricula(matricula)
+    self.new(matricula, "Password01")
   end
 
 private

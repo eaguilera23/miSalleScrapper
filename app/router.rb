@@ -13,7 +13,7 @@ class Router < Sinatra::Base
 
   post '/alumno' do
     @json = JSON.parse(request.body.read)
-    @matricula = @json["matricula"]
+    @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
 
     nav = Navegador.new(@matricula, @password)
@@ -29,7 +29,7 @@ class Router < Sinatra::Base
 
   post '/actualizar' do
     @json = JSON.parse(request.body.read)
-    @matricula = @json["matricula"]
+    @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
 
     nav = Navegador.new(@matricula, @password)
@@ -47,7 +47,7 @@ class Router < Sinatra::Base
   ###################################
   
   get '/alumno' do
-    @matricula = params["matricula"]
+    @matricula = params["matricula"].to_i.to_s
     @password = params["password"]
 
     nav = Navegador.new(@matricula, @password)
@@ -62,7 +62,7 @@ class Router < Sinatra::Base
   end
 
   get '/actualizar' do
-    @matricula = params["matricula"]
+    @matricula = params["matricula"].to_i.to_s
     @password = params["password"]
 
     nav = Navegador.new(@matricula, @password)
@@ -77,10 +77,20 @@ class Router < Sinatra::Base
   end
 
   get '/test' do
-    @matricula = params["matricula"]
+    @matricula = params["matricula"].to_i.to_s
     @password = "jaja"
 
-    nav = Navegador.new(@matricula, @password)
+    nav = Navegador.new_matricula(@matricula)
+    info = nav.parsear
+    content_type :json, :charset => 'utf-8'
+    info.to_json
+  end
+
+  post '/test' do
+    @json = JSON.parse(request.body.read)
+    @matricula = @json["matricula"].to_i.to_s
+
+    nav = Navegador.new_matricula(@matricula)
     info = nav.parsear
     content_type :json, :charset => 'utf-8'
     info.to_json
