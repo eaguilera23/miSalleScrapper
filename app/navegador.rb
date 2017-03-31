@@ -60,42 +60,42 @@ class Navegador
     periodos, faltas, info_map = self.periodos
     creditos = self.creditos
     informacion = self.informacion
-    mapa = Formateador.alumno(@@matricula, @@password, info_map, informacion, horario, periodos, faltas, creditos)
+    mapa = Formateador::Alumno.formatear(@@matricula, @@password, info_map, informacion, horario, periodos, faltas, creditos)
     mapa
   end
 
   def parsear_actualizar
     periodos, faltas = self.periodos
     creditos = self.creditos
-    mapa = Formateador.actualizar(periodos, faltas, creditos)
+    mapa = Formateador::Actualizar.formatear(periodos, faltas, creditos)
     mapa
   end
 
   def horario
     url = get_url(@@pag_horario)
     page = @@agent.get(url)
-    clases = HorarioParser.parsear(page)
+    clases = Parser::Horario.parsear(page)
     clases
   end
 
   def periodos
     url = get_url(@@pag_periodos)
     page = @@agent.get(url)
-    periodos_arr, faltas_arr, info_map = PeriodosParser.parsear(page)
+    periodos_arr, faltas_arr, info_map = Parser::Periodos.parsear(page)
     return periodos_arr, faltas_arr, info_map
   end
 
   def creditos
     url = get_url(@@pag_creditos)
     page = @@agent.get(url)
-    creditos = CreditosParser.parsear(page)
+    creditos = Parser::Creditos.parsear(page)
     creditos
   end
 
   def informacion
     url = get_url(@@pag_informacion)
     page = @@agent.get(url)
-    informacion = InformacionParser.parsear(page)
+    informacion = Parser::Informacion.parsear(page)
     informacion
   end
 
