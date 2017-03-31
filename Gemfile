@@ -3,4 +3,7 @@ ruby "2.4.0"
 gem "nokogiri"
 gem "mechanize"
 gem "sinatra"
-gem "pry"
+
+group :test, :development do
+  gem "pry"
+end
