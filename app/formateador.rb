@@ -26,9 +26,6 @@ module Formateador
     #   - +mapa+ -> Un mapa con toda la informacion del alumno
 
     def formatear(matricula, password, info_map, informacion, horario, periodos, faltas, creditos)
-      #PREGUNTA: Que el alumno tenga usuario? o viceversa?
-      # Estructura para GSON?
-      # ANSWER: NO ENVIAR EL MAIL PERO SI GUARDARLO
       mapa = {
         alumno: {
           matricula: matricula,
@@ -91,32 +88,28 @@ module Formateador
   # DESARROLLO #
   ##############
   def ejemplo
-    #ACTUAL
-    ejemplo = {
-      usuario: {
+   ejemplo = {
+     alumno: {
+       matricula: 60568,
+       nombre: "Jesus",
+       apellido_p: "Perez",
+       apellido_m: "Jimenez",
+       usuario: {
         matricula: 00060567,
         password: "JPJ60567"
-      },
-      informacion: {
-        nombre: "Jesús",
-        apellido_p: "Perez",
-        apellido_m: "Jimenez",
-        sexo: "F",
-        email: "lalo@yopmail.com",
-        matricula: 60567,
-        programa: "Carrera",
-        campus: "Torres",
-      },
-      creditos: [{
-        tipo: "Solidaridad",
-        necesarios: 30,
-        actuales: 8
-        },
-        {
-          tipo: "Deportivo",
-          necesarios: 30,
-          actuales: 9
-        }],
+       },
+       campus: {nombre: "Las torres"},
+       programa: {nombre: "Le Software"},
+       creditos: [{
+         tipo: "Solidaridad",
+         necesarios: 30,
+         actuales: 8
+         },
+         {
+           tipo: "Deportivo",
+           necesarios: 30,
+           actuales: 9
+         }],
       periodos: [
         {
           mes_inicio: 8,
@@ -125,8 +118,8 @@ module Formateador
           boletas: [
             {
               tipo: 1,
-              materia: "mate",
-              profesor: "Enrique Perez Perez",
+              materia: {nombre: "mate"},
+              profesor: {nombre: "Enrique Perez Perez"},
               parciales: [
                 {
                   numero: 1,
@@ -153,18 +146,9 @@ module Formateador
           ]
         }
       ],
-      horario: [
-        {
-          dia: 1,
-          hora_inicio: 14,
-          hora_final: 16,
-          materia: "mate",
-          profesor: "Pepe Perez Gonzales"
-        }
-      ],
       faltas: [
         {
-          materia: "mate",
+          materia: {nombre: "mate"},
           cantidad: 3,
           periodo: {
             mes_inicio: 8,
@@ -173,7 +157,8 @@ module Formateador
           }
         }
       ]
-    }
+     }
+   } 
     ejemplo
   end
 end

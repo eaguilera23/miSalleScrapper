@@ -157,8 +157,8 @@ module Parser
     def self.get_mapa(info)
       mapa = {
         tipo: info[:tipo],
-        materia: Formateador::Texto.acentos(info[:nom_materia].force_encoding("cp1252")).capitalize,
-        profesor: Formateador::Texto.acentos(info[:profesor]),
+        materia: {nombre: Formateador::Texto.acentos(info[:nom_materia].force_encoding("cp1252")).capitalize},
+        profesor: {nombre: Formateador::Texto.acentos(info[:profesor])},
         parciales: [
           {
             numero: 1,

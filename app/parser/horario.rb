@@ -47,8 +47,8 @@ module Parser
           dia: dia,
           hora_inicio: divididas[0].to_i,
           hora_final: divididas[1].to_i,
-          materia: Formateador::Texto.acentos(materia),
-          profesor: Formateador::Texto.acentos(profesor)
+          materia: {nombre: Formateador::Texto.acentos(materia)},
+          profesor: {nombre: Formateador::Texto.acentos(profesor)}
         }
         estructura
       end
