@@ -9,8 +9,15 @@ module Formateador
     # * *Argumentos*  :
     #   - +matricula+ -> La matricula del alumno
     #   - +password+ -> El password del alumno
-    #   - +info_map+ -> Un mapa que contiene el programa y el campus del alumno
-    #   - +informacion+ -> Un mapa con la información personal del alumno
+    #   - +info_map+ -> Un mapa que contiene el programa y el campus del alumno, siendo:
+    #     - programa
+    #     - campus
+    #   - +informacion+ -> Un mapa con la información personal del alumno, siendo: 
+    #     - nombre
+    #     - apellido_p
+    #     - apellido_m
+    #     - sexo
+    #     - email
     #   - +horario+ -> Un arreglo con las clases del alumno
     #   - +periodos+ -> Un arreglo con los periodos del alumno
     #   - +faltas+ -> Un arreglo con las faltas del alumno
@@ -19,25 +26,24 @@ module Formateador
     #   - +mapa+ -> Un mapa con toda la informacion del alumno
 
     def formatear(matricula, password, info_map, informacion, horario, periodos, faltas, creditos)
+      #PREGUNTA: Que el alumno tenga usuario? o viceversa?
+      # Estructura para GSON?
+      # ANSWER: NO ENVIAR EL MAIL PERO SI GUARDARLO
       mapa = {
-        usuario: {
+        alumno: {
           matricula: matricula,
-          password: password
-        },
-        informacion: {
           nombre: informacion[:nombre],
-          apellido_p: informacion[:apellido_p],
-          apellido_m: informacion[:apellido_m],
-          sexo: informacion[:sexo],
-          email: informacion[:email],
-          matricula: matricula,
-          programa: info_map[:programa],
-          campus: info_map[:campus],
-        },
-        creditos: creditos,
-        periodos: periodos,
-        horario: horario,
-        faltas: faltas
+          usuario: {
+            matricula: matricula,
+            password: password
+          },
+          campus: {nombre: info_map[:campus]},
+          programa: {nombre: info_map[:programa]},
+          creditos: creditos,
+          clases: horario,
+          periodos: periodos,
+          faltas: faltas
+        }
       }
       mapa
     end
@@ -85,6 +91,7 @@ module Formateador
   # DESARROLLO #
   ##############
   def ejemplo
+    #ACTUAL
     ejemplo = {
       usuario: {
         matricula: 00060567,
