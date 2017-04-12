@@ -46,13 +46,23 @@ module Formateador
     end
   end
 
-  module Actualizar
+  module Creditos
     module_function
-    def formatear(periodos, faltas, creditos)
+    
+    def formatear(creditos)
+      mapa = {
+        creditos: creditos
+      }
+      mapa
+    end 
+  end
+
+  module Periodos
+    module_function
+    def formatear(periodos, faltas)
       mapa = {
         periodos: periodos,
-        faltas: faltas,
-        creditos: creditos
+        faltas: faltas
       }
       mapa
     end

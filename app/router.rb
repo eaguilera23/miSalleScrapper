@@ -42,6 +42,23 @@ class Router < Sinatra::Base
       ErrorHelper.login.to_json
     end
   end
+
+  post '/creditos' do
+    @json = JSON.parse(request.body.read)
+    @matricula = @json["matricula"].to_i.to_s
+    @password = @json["password"]
+
+    nav = Navegador.new(@matricula, @password)
+    if nav.login then
+      creditos = nav.creditos
+      info = Formateador::Creditos.formatear(creditos)
+      content_type :json, :charset => 'utf-8'
+      info.to_json
+    else
+      status 420
+      ErrorHelper.login.to_json
+    end
+  end
   ###################################
   # RUTAS PARA FACILITAR DESARROLLO #
   ###################################
@@ -68,6 +85,22 @@ class Router < Sinatra::Base
     nav = Navegador.new(@matricula, @password)
     if nav.login then
       info = nav.parsear_actualizar
+      content_type :json, :charset => 'utf-8'
+      info.to_json
+    else
+      status 420
+      ErrorHelper.login.to_json
+    end
+  end
+
+  get '/creditos' do
+    @matricula = params["matricula"].to_i.to_s
+    @password = params["password"]
+
+    nav = Navegador.new(@matricula, @password)
+    if nav.login then
+      creditos = nav.creditos
+      info = Formateador::Creditos.formatear(creditos)
       content_type :json, :charset => 'utf-8'
       info.to_json
     else

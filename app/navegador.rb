@@ -64,13 +64,6 @@ class Navegador
     mapa
   end
 
-  def parsear_actualizar
-    periodos, faltas = self.periodos
-    creditos = self.creditos
-    mapa = Formateador::Actualizar.formatear(periodos, faltas, creditos)
-    mapa
-  end
-
   def horario
     url = get_url(@@pag_horario)
     page = @@agent.get(url)
