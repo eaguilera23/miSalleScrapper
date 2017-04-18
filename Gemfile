@@ -6,4 +6,5 @@ gem "sinatra"
 
 group :test, :development do
   gem "pry"
+  gem "rspec"
 end
