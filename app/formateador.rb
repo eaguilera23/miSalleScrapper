@@ -27,20 +27,18 @@ module Formateador
 
     def formatear(matricula, password, info_map, informacion, horario, periodos, faltas, creditos)
       mapa = {
-        alumno: {
+        matricula: matricula,
+        nombre: informacion[:nombre],
+        usuario: {
           matricula: matricula,
-          nombre: informacion[:nombre],
-          usuario: {
-            matricula: matricula,
-            password: password
-          },
-          campus: {nombre: info_map[:campus]},
-          programa: {nombre: info_map[:programa]},
-          creditos: creditos,
-          clases: horario,
-          periodos: periodos,
-          faltas: faltas
-        }
+          password: password
+        },
+        campus: {nombre: info_map[:campus]},
+        programa: {nombre: info_map[:programa]},
+        creditos: creditos,
+        clases: horario,
+        periodos: periodos,
+        faltas: faltas
       }
       mapa
     end
