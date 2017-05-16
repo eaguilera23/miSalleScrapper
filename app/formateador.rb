@@ -30,6 +30,8 @@ module Formateador
         alumno: {
           matricula: matricula,
           nombre: informacion[:nombre],
+          apellido_p: informacion[:apellido_p],
+          apellido_m: informacion[:apellido_m],
           usuario: {
             matricula: matricula,
             password: password
