@@ -112,8 +112,8 @@ module Parser
           falta = get_faltas(celdas[11].content.strip, nom_materia)
           final = celdas[12].content.strip
 
-          info = {tipo: tipo, nom_materia: nom_materia, profesor: profesor, parcial1: parcial1, parcial2: parcial2,
-                  parcial3: parcial3, parcial4: parcial4, final: final}
+          info = {tipo: tipo, nom_materia: nom_materia, profesor: profesor, parcial1: parcial1.to_i, 
+                  parcial2: parcial2.to_f, parcial3: parcial3.to_f, parcial4: parcial4.to_f, final: final.to_f}
           mapa = get_mapa(info)
 
           boletas << mapa 
@@ -149,7 +149,7 @@ module Parser
     def self.get_faltas(faltas, nom_materia)
       mapa = {
         cantidad: faltas,
-        materia: Formateador::Texto.acentos(nom_materia.force_encoding("cp1252")).capitalize
+        materia: {nombre: Formateador::Texto.acentos(nom_materia.force_encoding("cp1252")).capitalize}
       }
       mapa
     end
