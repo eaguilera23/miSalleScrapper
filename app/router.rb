@@ -2,6 +2,7 @@ require 'json'
 require_relative 'formateador'
 require_relative 'helpers/error_helper'
 class Router < Sinatra::Base
+  #DOING: checar parámetros vacíos
   set :server, 'webrick'
 
   get '/' do
@@ -16,11 +17,16 @@ class Router < Sinatra::Base
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
 
-    nav = Navegador.new(@matricula, @password)
-    if nav.login then
-      info = nav.parsear
-      content_type :json, :charset => 'utf-8'
-      info.to_json
+    if LoginHelper.check_params(@matricula, @password) then
+      nav = Navegador.new(@matricula, @password)
+      if nav.login then
+        info = nav.parsear
+        content_type :json, :charset => 'utf-8'
+        info.to_json
+      else
+        status 420
+        ErrorHelper.login.to_json
+      end
     else
       status 420
       ErrorHelper.login.to_json
@@ -32,15 +38,20 @@ class Router < Sinatra::Base
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
 
-    nav = Navegador.new(@matricula, @password)
-    if nav.login then
-      creditos = nav.creditos
-      info = Formateador::Creditos.formatear(creditos)
-      content_type :json, :charset => 'utf-8'
-      info.to_json
+    if LoginHelper.check_params(@matricula, @password) then
+      nav = Navegador.new(@matricula, @password)
+      if nav.login then
+        creditos = nav.creditos
+        info = Formateador::Creditos.formatear(creditos)
+        content_type :json, :charset => 'utf-8'
+        info.to_json
+      else
+        status 420
+        ErrorHelper.login.to_json
+      end
     else
       status 420
-      ErrorHelper.login.to_json
+      ErrorHelper.login_to_json
     end
   end
 
@@ -49,12 +60,17 @@ class Router < Sinatra::Base
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
 
-    nav = Navegador.new(@matricula, @password)
-    if nav.login then
-      periodos, faltas, info_map = nav.periodos
-      info = Formateador::Periodos.formatear(periodos, faltas) 
-      content_type :json, :charset => 'utf-8'
-      info.to_json
+    if LoginHelper.check_params(@matricula, @params) then
+      nav = Navegador.new(@matricula, @password)
+      if nav.login then
+        periodos, faltas, info_map = nav.periodos
+        info = Formateador::Periodos.formatear(periodos, faltas) 
+        content_type :json, :charset => 'utf-8'
+        info.to_json
+      else
+        status 420
+        ErrorHelper.login.to_json
+      end
     else
       status 420
       ErrorHelper.login.to_json
@@ -67,31 +83,47 @@ class Router < Sinatra::Base
   get '/alumno' do
     @matricula = params["matricula"].to_i.to_s
     @password = params["password"]
+    if @matricula === "0" then
+      @matricula = ""
+    end
 
-    nav = Navegador.new(@matricula, @password)
-    if nav.login then
-      info = nav.parsear
-      content_type :json, :charset => 'utf-8'
-      info.to_json
-    else
+    if @matricula.empty? or @password.empty? then
       status 420
       ErrorHelper.login.to_json
+    else
+      nav = Navegador.new(@matricula, @password)
+      if nav.login then
+        info = nav.parsear
+        content_type :json, :charset => 'utf-8'
+        info.to_json
+      else
+        status 420
+        ErrorHelper.login.to_json
+      end
     end
   end
 
   get '/creditos' do
     @matricula = params["matricula"].to_i.to_s
     @password = params["password"]
+    if @matricula === "0" then
+      @matricula = ""
+    end
 
-    nav = Navegador.new(@matricula, @password)
-    if nav.login then
-      creditos = nav.creditos
-      info = Formateador::Creditos.formatear(creditos)
-      content_type :json, :charset => 'utf-8'
-      info.to_json
-    else
+    if @matricula.empty? or @password.empty? then
       status 420
       ErrorHelper.login.to_json
+    else
+      nav = Navegador.new(@matricula, @password)
+      if nav.login then
+        creditos = nav.creditos
+        info = Formateador::Creditos.formatear(creditos)
+        content_type :json, :charset => 'utf-8'
+        info.to_json
+      else
+        status 420
+        ErrorHelper.login.to_json
+      end
     end
   end
 
@@ -99,12 +131,17 @@ class Router < Sinatra::Base
     @matricula = params["matricula"].to_i.to_s
     @password = params["password"]
 
-    nav = Navegador.new(@matricula, @password)
-    if nav.login then
-      periodos, faltas, info_map = nav.periodos
-      info = Formateador::Periodos.formatear(periodos, faltas) 
-      content_type :json, :charset => 'utf-8'
-      info.to_json
+    if LoginHelper.check_params(@matricula, @password) then
+      nav = Navegador.new(@matricula, @password)
+      if nav.login then
+        periodos, faltas, info_map = nav.periodos
+        info = Formateador::Periodos.formatear(periodos, faltas) 
+        content_type :json, :charset => 'utf-8'
+        info.to_json
+      else
+        status 420
+        ErrorHelper.login.to_json
+      end
     else
       status 420
       ErrorHelper.login.to_json
