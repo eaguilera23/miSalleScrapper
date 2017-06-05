@@ -15,6 +15,7 @@ class Navegador
   @@pag_informacion
   @@matricula
   @@password
+  @@pag_encoding
 
   @@url_terminacion
 
@@ -29,6 +30,7 @@ class Navegador
     @@pag_periodos = "w0400301.r"
     @@pag_creditos = "w0600101.r"
     @@pag_informacion = "w0400701.r"
+    @@pag_encoding = "cp1252"
     @@matricula = matricula.to_s
     @@password = password.to_s
 
@@ -67,6 +69,7 @@ class Navegador
   def horario
     url = get_url(@@pag_horario)
     page = @@agent.get(url)
+    page.encoding = @@pag_encoding
     clases = Parser::Horario.parsear(page)
     clases
   end
@@ -74,6 +77,7 @@ class Navegador
   def periodos
     url = get_url(@@pag_periodos)
     page = @@agent.get(url)
+    page.encoding = @@pag_encoding
     periodos_arr, faltas_arr, info_map = Parser::Periodos.parsear(page)
     return periodos_arr, faltas_arr, info_map
   end
@@ -81,6 +85,7 @@ class Navegador
   def creditos
     url = get_url(@@pag_creditos)
     page = @@agent.get(url)
+    page.encoding = @@pag_encoding
     creditos = Parser::Creditos.parsear(page)
     creditos
   end
@@ -88,6 +93,7 @@ class Navegador
   def informacion
     url = get_url(@@pag_informacion)
     page = @@agent.get(url)
+    page.encoding = @@pag_encoding
     informacion = Parser::Informacion.parsear(page)
     informacion
   end

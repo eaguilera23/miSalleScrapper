@@ -36,11 +36,9 @@ module Parser
 
     def self.get_mapa(ap, am, nombre, sexo, email)
       mapa = {
-        # La informacion al parecer está guardada en La Salle con encoding cp1252,
-        # pero Nokogiri la toma como utf-8. 
-        nombre: Formateador::Texto.acentos(nombre.force_encoding("cp1252").encode("utf-8")),
-        apellido_p: Formateador::Texto.acentos(ap.force_encoding("cp1252").encode("utf-8")),
-        apellido_m: Formateador::Texto.acentos(am),
+        nombre: nombre,
+        apellido_p: ap,
+        apellido_m: am,
         sexo: sexo,
         email: email
       }

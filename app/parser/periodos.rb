@@ -149,7 +149,7 @@ module Parser
     def self.get_faltas(faltas, nom_materia)
       mapa = {
         cantidad: faltas,
-        materia: {nombre: Formateador::Texto.acentos(nom_materia.force_encoding("cp1252")).capitalize}
+        materia: {nombre: nom_materia.capitalize}
       }
       mapa
     end
@@ -157,8 +157,8 @@ module Parser
     def self.get_mapa(info)
       mapa = {
         tipo: info[:tipo],
-        materia: {nombre: Formateador::Texto.acentos(info[:nom_materia].force_encoding("cp1252")).capitalize},
-        profesor: {nombre: Formateador::Texto.acentos(info[:profesor])},
+        materia: {nombre: info[:nom_materia].capitalize},
+        profesor: {nombre: info[:profesor]},
         parciales: [
           {
             numero: 1,

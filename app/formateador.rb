@@ -68,32 +68,6 @@ module Formateador
     end
   end
 
-  module Texto
-    module_function
-    # El sitio de la salle guarda diferentes textos en diferentes encodings.
-    # Todavía no se sabe si es problema directamente de La Salle, o cómo Nokogiri
-    # interactua con el sitio. Todo esto para representar correctamente los acentos.
-    # * *Argumentos*  :
-    #   - +string+ -> La cadena a revisar
-    # * *Retorna*     :
-    #   - +resultado+ -> Cadena correctamente formateada presentando cualquier caractér especial
-    def acentos(string)
-      resultado = ""
-      if string.encoding.to_s == "UTF-8" then
-        # puts "String a convertir: " + string + " con encoding: " + string.encoding.to_s
-        resultado = string
-        # puts "El resultado es: " + resultado + " con encoding: " + resultado.encoding.to_s
-      elsif string.encoding.to_s == "Windows-1252"
-        # puts "String a convertir: " + string + " con encoding: " + string.encoding.to_s
-        resultado = string.force_encoding("utf-8")
-        # puts "El resultado es: " + resultado + " con encoding: " + resultado.encoding.to_s
-      else
-        puts "El encoding es: " + string.encoding.to_s + " de: " + string
-      end
-      resultado
-    end
-  end
-
   ##############
   # DESARROLLO #
   ##############
