@@ -25,12 +25,13 @@ module Formateador
     # * *Retorna*     :
     #   - +mapa+ -> Un mapa con toda la informacion del alumno
 
-    def formatear(matricula, password, info_map, informacion, horario, periodos, faltas, creditos)
+    def formatear(matricula, password, info_map, informacion, horario, periodos, faltas, creditos, turno)
       mapa = {
         matricula: matricula,
         nombre: informacion[:nombre],
         apellido_p: informacion[:apellido_p],
         apellido_m: informacion[:apellido_m],
+        turno: turno,
         usuario: {
           matricula: matricula,
           password: password

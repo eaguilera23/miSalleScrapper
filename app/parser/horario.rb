@@ -16,6 +16,8 @@ module Parser
     #                  revisar el método self.clase
     def self.parsear(page)
       horario = []
+      tabla_info = page.xpath("//table")[1]
+      turno = get_turno(tabla_info) ? "M" : "V"
       table = page.xpath("//table")[2]
       table.xpath('tr').each_with_index do |tr, i|
         # i = 0 son las cabeceras. A partir de ahi son las clases
@@ -24,10 +26,13 @@ module Parser
           horario += materia(cont)
         end
       end
-      horario
+      return horario, turno
     end
 
   private
+      def self.get_turno(tabla)
+        return true
+      end
       def self.materia(materia)
         clases = []
         nombre = materia[1].capitalize
