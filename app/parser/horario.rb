@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'pry'
 require_relative '../formateador'
 
 module Parser
@@ -18,7 +19,8 @@ module Parser
       horario = []
       tabla_info = page.xpath("//table")[1]
       turno = get_turno(tabla_info) ? "M" : "V"
-      table = page.xpath("//table")[2]
+      table_help = page.xpath("//table")[2]
+      table = table_help.xpath("tbody")
       table.xpath('tr').each_with_index do |tr, i|
         # i = 0 son las cabeceras. A partir de ahi son las clases
         unless i == 0
