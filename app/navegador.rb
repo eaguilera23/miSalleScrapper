@@ -70,7 +70,7 @@ class Navegador
     #url = get_url(@@pag_horario)
     #page = @@agent.get(url)
     
-    page = @@agent.get("file:///Users/edago/Code/miSalle/miSalleScrapper/app/example-horario.html")
+    page = @@agent.get("http://pruebatarea2302.herokuapp.com/mihorario")
 
     page.encoding = @@pag_encoding
     clases = Parser::Horario.parsear(page)
