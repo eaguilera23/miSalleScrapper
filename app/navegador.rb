@@ -59,10 +59,10 @@ class Navegador
 
   def parsear
     horario, turno = self.horario
-    periodos, faltas, info_map = self.periodos
+    periodos, info_map = self.periodos
     creditos = self.creditos
     informacion = self.informacion
-    mapa = Formateador::Alumno.formatear(@@matricula, @@password, info_map, informacion, horario, periodos, faltas, creditos, turno)
+    mapa = Formateador::Alumno.formatear(@@matricula, @@password, info_map, informacion, horario, periodos, creditos, turno)
     mapa
   end
 
@@ -78,8 +78,8 @@ class Navegador
     url = get_url(@@pag_periodos)
     page = @@agent.get(url)
     page.encoding = @@pag_encoding
-    periodos_arr, faltas_arr, info_map = Parser::Periodos.parsear(page)
-    return periodos_arr, faltas_arr, info_map
+    periodos_arr, info_map = Parser::Periodos.parsear(page)
+    return periodos_arr, info_map
   end
 
   def creditos

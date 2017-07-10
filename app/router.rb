@@ -64,8 +64,8 @@ class Router < Sinatra::Base
     if LoginHelper.check_params(@matricula, @params) then
       nav = Navegador.new(@matricula, @password)
       if nav.login then
-        periodos, faltas, info_map = nav.periodos
-        info = Formateador::Periodos.formatear(periodos, faltas) 
+        periodos, info_map = nav.periodos
+        info = Formateador::Periodos.formatear(periodos) 
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
@@ -135,8 +135,8 @@ class Router < Sinatra::Base
     if LoginHelper.check_params(@matricula, @password) then
       nav = Navegador.new(@matricula, @password)
       if nav.login then
-        periodos, faltas, info_map = nav.periodos
-        info = Formateador::Periodos.formatear(periodos, faltas) 
+        periodos, info_map = nav.periodos
+        info = Formateador::Periodos.formatear(periodos) 
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
