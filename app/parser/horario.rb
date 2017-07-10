@@ -1,5 +1,4 @@
 require 'nokogiri'
-require 'pry'
 require_relative '../formateador'
 
 module Parser
