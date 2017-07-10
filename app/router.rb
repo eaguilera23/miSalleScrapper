@@ -173,4 +173,12 @@ class Router < Sinatra::Base
     content_type :json, :charset => 'utf-8'
     JSON[Formateador.ejemplo]
   end
+
+  get '/mihorario' do
+    File.read("#{Dir.pwd}/app/example-horario.html")
+  end
+
+  post '/mihorario' do
+    File.read("#{Dir.pwd}/app/example-horario.html")
+  end
 end

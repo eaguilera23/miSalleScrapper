@@ -67,8 +67,11 @@ class Navegador
   end
 
   def horario
-    url = get_url(@@pag_horario)
-    page = @@agent.get(url)
+    #url = get_url(@@pag_horario)
+    #page = @@agent.get(url)
+    
+    page = @@agent.get("file:///Users/edago/Code/miSalle/miSalleScrapper/app/example-horario.html")
+
     page.encoding = @@pag_encoding
     clases = Parser::Horario.parsear(page)
     clases
