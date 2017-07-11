@@ -4,6 +4,8 @@ require 'sinatra/activerecord'
 require_relative 'formateador'
 require_relative 'helpers/error_helper'
 require_relative 'helpers/login_helper'
+Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
+
 class Router < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   set :server, 'webrick'
@@ -23,6 +25,7 @@ class Router < Sinatra::Base
     if LoginHelper.check_params(@matricula, @password) then
       nav = Navegador.new(@matricula, @password)
       if nav.login then
+        @usuario = Usuario.create(:matricula => @matricula)
         info = nav.parsear
         content_type :json, :charset => 'utf-8'
         info.to_json
@@ -96,6 +99,7 @@ class Router < Sinatra::Base
     else
       nav = Navegador.new(@matricula, @password)
       if nav.login then
+        @usuario = Usuario.create(:matricula => @matricula)
         info = nav.parsear
         content_type :json, :charset => 'utf-8'
         info.to_json
