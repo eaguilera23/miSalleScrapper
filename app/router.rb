@@ -1,9 +1,11 @@
 require 'json'
+require 'sinatra/base'
+require 'sinatra/activerecord'
 require_relative 'formateador'
 require_relative 'helpers/error_helper'
 require_relative 'helpers/login_helper'
 class Router < Sinatra::Base
-  #DOING: checar parámetros vacíos
+  register Sinatra::ActiveRecordExtension
   set :server, 'webrick'
 
   get '/' do
