@@ -3,6 +3,10 @@ ruby "2.4.0"
 gem "nokogiri"
 gem "mechanize"
 gem "sinatra"
+gem "pg"
+gem "activerecord"
+gem "sinatra-activerecord"
+gem "rake"
 
 group :test, :development do
   gem "pry"
