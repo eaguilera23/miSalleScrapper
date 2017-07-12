@@ -4,6 +4,7 @@ require 'sinatra/activerecord'
 require_relative 'formateador'
 require_relative 'helpers/error_helper'
 require_relative 'helpers/login_helper'
+require_relative 'publicidad/publicidad'
 Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
 
 class Router < Sinatra::Base
@@ -81,6 +82,13 @@ class Router < Sinatra::Base
       status 420
       ErrorHelper.login.to_json
     end
+  end
+
+  post '/anuncios' do
+    @json = JSON.parse(request.body.read)
+    anuncios = Publicidad.mostrar_anuncios
+    info = { anuncios: anuncios }
+    info.to_json
   end
   ###################################
   # RUTAS PARA FACILITAR DESARROLLO #

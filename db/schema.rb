@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170711202711) do
 
   create_table "campaigns", force: :cascade do |t|
     t.datetime "fecha_inicio"
-    t.integer "vistas_completadas"
+    t.integer "vistas_completadas", default: 0
     t.integer "vistas_contratadas"
     t.datetime "fecha_termino"
     t.string "destino_click"
