@@ -24,23 +24,6 @@ En esta ruta el cliente obtendrá una serie de anuncios para mostrar
 }
 ```
 
-## Registrar vista
-
-En esta ruta se registrará una vista a una campaña
-
-*Método*
-`POST`
-
-*Ruta*
-`/campaign/:id/vista`
-
-*Parámetros*
-`null`
-
-*Respuesta*
-status 200
-`null`
-
 ## Registrar click
 
 En esta ruta se registrará cuando se realizó un click a un anuncio

@@ -84,11 +84,17 @@ class Router < Sinatra::Base
     end
   end
 
-  post '/anuncios' do
+  post '/anuncio' do
     @json = JSON.parse(request.body.read)
-    anuncios = Publicidad.mostrar_anuncios
-    info = { anuncios: anuncios }
+    anuncio = Publicidad.mostrar_anuncio
+    info = { anuncio: anuncio }
     info.to_json
+  end
+
+  post '/campaign/:id/click/:matricula' do
+    #@json = JSON.parse(request.body.read)
+    Publicidad.registrar_click(params[:id], params[:matricula])
+    status 200
   end
   ###################################
   # RUTAS PARA FACILITAR DESARROLLO #
