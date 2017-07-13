@@ -15,9 +15,6 @@ class Router < Sinatra::Base
     "Hello World"
   end
 
-  # Modelos con sinatra
-  # http://stackoverflow.com/questions/22597989/how-to-define-a-class-in-ruby-when-using-sequel
-
   post '/alumno' do
     @json = JSON.parse(request.body.read)
     @matricula = @json["matricula"].to_i.to_s
