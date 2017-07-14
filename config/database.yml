@@ -1,0 +1,10 @@
+development:
+  adapter: postgresql
+  database: miSalle
+  username: postgres
+
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: miSalle_production
