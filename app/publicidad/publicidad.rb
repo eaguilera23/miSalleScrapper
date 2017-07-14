@@ -46,6 +46,22 @@ module Publicidad
     end
   end
 
+  def setup_default
+   anunciante = Anunciante.create(nombre: "Eduardo Aguilera Olascoaga", 
+                                  telefono: "4774493833", 
+                                  email: "laloao.2302@gmail.com", 
+                                  empresa: "Monk Estudio de Desarrollo") 
+   campaign = Campaign.new(status: :no_activo, 
+                           vistas_contratadas: 100000, 
+                           destino_click: "www.misalle.com.mx",
+                           fecha_inicio: DateTime.now)
+   anuncio = Anuncio.new(ruta_imagen: "https://s3.envato.com/files/62273611/PNG%20Blue/Banner%20blue%20320x50.png")
+   anuncio.save
+   campaign.anuncio = anuncio
+   campaign.anunciante = anunciante
+   campaign.save
+  end
+
   def test
     default_anuncio = Anuncio.create(ruta_imagen: "default imagen")
     default = Campaign.new(status: :no_activo, vistas_contratadas: 100000, destino_click: "default url click")
