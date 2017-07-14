@@ -6,5 +6,4 @@ development:
 production:
   <<: *default
   adapter: postgresql
-  encoding: unicode
   database: miSalle_production
