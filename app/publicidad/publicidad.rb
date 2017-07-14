@@ -1,5 +1,9 @@
-require_relative "#{Dir.pwd}/app/modelos/campaign.rb"
-require_relative "#{Dir.pwd}/app/modelos/anuncio.rb"
+dir_pwd = Dir.pwd
+require 'sinatra/activerecord'
+require_relative "#{dir_pwd}/app/modelos/campaign.rb"
+require_relative "#{dir_pwd}/app/modelos/anuncio.rb"
+require_relative "#{dir_pwd}/app/modelos/anunciante.rb"
+require_relative "#{dir_pwd}/app/formateador.rb"
 module Publicidad
   module_function
 
@@ -12,11 +16,7 @@ module Publicidad
 
     Campaign.increment_counter(:vistas_completadas, campaign, touch: true)
 
-    mapa = {
-      campaign_id: campaign.id,
-      destino_click: campaign.destino_click,
-      ruta_imagen: campaign.anuncio.ruta_imagen
-    }
+    mapa = Formateador::Anuncio.formatear(campaign)
 
     verificar_estado_campaign(campaign.id)
 
