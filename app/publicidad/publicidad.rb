@@ -29,9 +29,9 @@ module Publicidad
    click.usuario = usuario
    click.campaign_id = campaign_id
    if click.save then
-     Campaign.increment_counter(:vistas_completadas, campaign_id)  
-     Campaign.increment_counter(:vistas_completadas, campaign_id)  
-     Campaign.increment_counter(:vistas_completadas, campaign_id)  
+     4.times do
+       Campaign.increment_counter(:vistas_completadas, campaign_id)  
+     end
    end
 
    verificar_estado_campaign(campaign_id)
