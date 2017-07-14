@@ -85,6 +85,7 @@ class Router < Sinatra::Base
     @json = JSON.parse(request.body.read)
     anuncio = Publicidad.mostrar_anuncio
     info = { anuncio: anuncio }
+    content_type :json, :charset => 'utf-8'
     info.to_json
   end
 
