@@ -84,9 +84,8 @@ class Router < Sinatra::Base
   post '/anuncio' do
     @json = JSON.parse(request.body.read)
     anuncio = Publicidad.mostrar_anuncio
-    info = { anuncio: anuncio }
     content_type :json, :charset => 'utf-8'
-    info.to_json
+    anuncio.to_json
   end
 
   post '/campaign/:id/click/:matricula' do
