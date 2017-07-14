@@ -67,6 +67,20 @@ module Formateador
     end
   end
 
+  module Anuncio
+    module_function
+    
+    def formatear(campaign)
+      mapa = {
+        campaign_id: campaign.id,
+        destino_click: campaign.destino_click,
+        ruta_imagen: campaign.anuncio.ruta_imagen
+      }
+
+      mapa
+    end
+  end
+
   ##############
   # DESARROLLO #
   ##############
