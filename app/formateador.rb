@@ -40,7 +40,7 @@ module Formateador
         programa: {nombre: info_map[:programa]},
         creditos: creditos,
         clases: horario,
-        periodos: periodos,
+        periodos: periodos
       }
       mapa
     end
@@ -78,6 +78,23 @@ module Formateador
       }
 
       mapa
+    end
+  end
+
+  module Pagos
+    module_function
+    
+    def formatear(pagos)
+      arreglo = []
+      pagos.each do |p|
+         pago = {
+          mes: p.fecha.month,
+          year: p.fecha.year,
+          dia: p.fecha.day
+         }
+         arreglo << pago
+      end
+      arreglo
     end
   end
 

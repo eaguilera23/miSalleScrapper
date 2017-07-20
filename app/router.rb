@@ -25,6 +25,8 @@ class Router < Sinatra::Base
       if nav.login then
         @usuario = Usuario.create(:matricula => @matricula)
         info = nav.parsear
+        # Fechas en ISO standard (yyyy-MM-dd)
+        info[:pagos] = Pago.all
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
