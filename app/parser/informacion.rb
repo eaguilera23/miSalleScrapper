@@ -1,4 +1,4 @@
-require_relative '../formateador'
+require 'nokogiri'
 
 module Parser
   module Informacion

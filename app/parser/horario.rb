@@ -1,5 +1,4 @@
 require 'nokogiri'
-require_relative '../formateador'
 
 module Parser
   module Horario
