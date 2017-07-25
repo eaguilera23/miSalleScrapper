@@ -59,7 +59,7 @@ module Formateador
 
   module Periodos
     module_function
-    def formatear(periodos, faltas)
+    def formatear(periodos)
       mapa = {
         periodos: periodos
       }

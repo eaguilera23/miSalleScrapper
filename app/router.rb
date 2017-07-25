@@ -66,7 +66,7 @@ class Router < Sinatra::Base
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
 
-    if LoginHelper.check_params(@matricula, @params) then
+    if LoginHelper.check_params(@matricula, @password) then
       nav = Navegador.new(@matricula, @password)
       if nav.login then
         periodos, info_map = nav.periodos
