@@ -17,7 +17,6 @@ module Parser
     def self.parsear(page)
       horario = []
       tabla_info = page.xpath("//table")[1]
-      turno = get_turno(tabla_info) ? "M" : "V"
       table_help = page.xpath("//table")[2]
       table = table_help.xpath("tbody")
       table.xpath('tr').each_with_index do |tr, i|
@@ -27,13 +26,10 @@ module Parser
           horario += materia(cont)
         end
       end
-      return horario, turno
+      return horario
     end
 
   private
-      def self.get_turno(tabla)
-        return true
-      end
       def self.materia(materia)
         clases = []
         nombre = materia[1].capitalize
