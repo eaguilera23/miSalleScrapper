@@ -7,12 +7,12 @@ require_relative 'helpers/login_helper'
 require_relative 'publicidad/publicidad'
 Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
 
-class Router < Sinatra::Base
+class RouterV1 < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   set :server, 'webrick'
 
   get '/' do
-    "Hello World"
+    "Hello World v1"
   end
 
   post '/alumno' do
@@ -24,8 +24,9 @@ class Router < Sinatra::Base
       nav = Navegador.new(@matricula, @password)
       if nav.login then
         @usuario = Usuario.create(:matricula => @matricula)
-        info = nav.parsear
-        # Fechas en ISO standard (yyyy-MM-dd)
+        mapa = nav.parsear
+        info = Formateador::Alumno::V1.formatear(mapa)
+        # Fechas de pago en ISO standard (yyyy-MM-dd)
         info[:pagos] = Pago.all
         content_type :json, :charset => 'utf-8'
         info.to_json
@@ -48,7 +49,7 @@ class Router < Sinatra::Base
       nav = Navegador.new(@matricula, @password)
       if nav.login then
         creditos = nav.creditos
-        info = Formateador::Creditos.formatear(creditos)
+        info = Formateador::Creditos::V1.formatear(creditos)
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
@@ -70,7 +71,7 @@ class Router < Sinatra::Base
       nav = Navegador.new(@matricula, @password)
       if nav.login then
         periodos, info_map = nav.periodos
-        info = Formateador::Periodos.formatear(periodos) 
+        info = Formateador::Periodos::V1.formatear(periodos) 
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
@@ -86,8 +87,9 @@ class Router < Sinatra::Base
   post '/anuncio' do
     @json = JSON.parse(request.body.read)
     anuncio = Publicidad.mostrar_anuncio
+    info = Formateador::Anuncio::V1.formatear(anuncio)
     content_type :json, :charset => 'utf-8'
-    anuncio.to_json
+    info.to_json
   end
 
   post '/click' do
@@ -137,7 +139,7 @@ class Router < Sinatra::Base
       nav = Navegador.new(@matricula, @password)
       if nav.login then
         creditos = nav.creditos
-        info = Formateador::Creditos.formatear(creditos)
+        info = Formateador::Creditos::V1.formatear(creditos)
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
@@ -155,7 +157,7 @@ class Router < Sinatra::Base
       nav = Navegador.new(@matricula, @password)
       if nav.login then
         periodos, info_map = nav.periodos
-        info = Formateador::Periodos.formatear(periodos) 
+        info = Formateador::Periodos::V1.formatear(periodos) 
         content_type :json, :charset => 'utf-8'
         info.to_json
       else

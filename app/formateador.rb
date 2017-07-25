@@ -25,76 +25,92 @@ module Formateador
     # * *Retorna*     :
     #   - +mapa+ -> Un mapa con toda la informacion del alumno
 
-    def formatear(matricula, password, info_map, informacion, horario, periodos, creditos, turno)
-      mapa = {
-        matricula: matricula,
-        nombre: informacion[:nombre],
-        apellido_p: informacion[:apellido_p],
-        apellido_m: informacion[:apellido_m],
-        turno: turno,
-        usuario: {
-          matricula: matricula,
-          password: password
-        },
-        campus: {nombre: info_map[:campus]},
-        programa: {nombre: info_map[:programa]},
-        creditos: creditos,
-        clases: horario,
-        periodos: periodos
-      }
-      mapa
+    module V1
+      module_function
+
+      def formatear(mapa)
+        mapa = {
+          matricula: mapa[:matricula],
+          nombre: mapa[:informacion][:nombre],
+          apellido_p: mapa[:informacion][:apellido_p],
+          apellido_m: mapa[:informacion][:apellido_m],
+          usuario: {
+            matricula: mapa[:matricula],
+            password: mapa[:password]
+          },
+          campus: {nombre: mapa[:info_map][:campus]},
+          programa: {nombre: mapa[:info_map][:programa]},
+          creditos: mapa[:creditos],
+          clases: mapa[:horario],
+          periodos: mapa[:periodos]
+        }
+        mapa
+      end
     end
   end
 
   module Creditos
     module_function
     
-    def formatear(creditos)
-      mapa = {
-        creditos: creditos
-      }
-      mapa
-    end 
+    module V1
+      module_function
+      def formatear(creditos)
+        mapa = {
+          creditos: creditos
+        }
+        mapa
+      end 
+    end
   end
 
   module Periodos
     module_function
-    def formatear(periodos)
-      mapa = {
-        periodos: periodos
-      }
-      mapa
+    module V1
+      module_function
+      def formatear(periodos)
+        mapa = {
+          periodos: periodos
+        }
+        mapa
+      end
     end
   end
 
   module Anuncio
     module_function
-    
-    def formatear(campaign)
-      mapa = {
-        campaign_id: campaign.id,
-        destino_click: campaign.destino_click,
-        ruta_imagen: campaign.anuncio.ruta_imagen
-      }
 
-      mapa
+    module V1
+      module_function
+    
+      def formatear(campaign)
+        mapa = {
+          campaign_id: campaign.id,
+          destino_click: campaign.destino_click,
+          ruta_imagen: campaign.anuncio.ruta_imagen
+        }
+
+        mapa
+      end
     end
   end
 
   module Pagos
     module_function
+    module V1
+      module_function
     
-    def formatear(pagos)
-      arreglo = []
-      pagos.each do |p|
-         pago = {
-          mes: p.fecha.month,
-          year: p.fecha.year,
-          dia: p.fecha.day
-         }
-         arreglo << pago
+      def formatear(pagos)
+        arreglo = []
+        pagos.each do |p|
+           pago = {
+            mes: p.fecha.month,
+            year: p.fecha.year,
+            dia: p.fecha.day
+           }
+           arreglo << pago
+        end
+        arreglo
       end
-      arreglo
     end
   end
 

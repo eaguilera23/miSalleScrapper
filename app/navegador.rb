@@ -58,11 +58,19 @@ class Navegador
   end
 
   def parsear
-    horario, turno = self.horario
+    horario = self.horario
     periodos, info_map = self.periodos
     creditos = self.creditos
     informacion = self.informacion
-    mapa = Formateador::Alumno.formatear(@@matricula, @@password, info_map, informacion, horario, periodos, creditos, turno)
+    mapa = {
+      matricula: @@matricula,
+      password: @@password,
+      info_map: info_map,
+      informacion: informacion,
+      horario: horario,
+      periodos: periodos,
+      creditos: creditos
+    }
     mapa
   end
 

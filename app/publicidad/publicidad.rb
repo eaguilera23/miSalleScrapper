@@ -16,11 +16,9 @@ module Publicidad
 
     Campaign.increment_counter(:vistas_completadas, campaign, touch: true)
 
-    mapa = Formateador::Anuncio.formatear(campaign)
-
     verificar_estado_campaign(campaign.id)
 
-    mapa
+    campaign
   end
 
   def registrar_click(campaign_id, matricula)
