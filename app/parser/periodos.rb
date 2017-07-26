@@ -73,7 +73,8 @@ module Parser
       end
 
       if parrafos.last.content.include?('Periodo') then 
-        periodo = get_periodo(parrafos.pop.content)
+        periodo = parrafos.pop.content
+        periodo = periodo.slice(9..-1)
         periodo_mapa = get_periodo_mapa(periodo, boletas)
         pila << periodo_mapa
 
@@ -122,10 +123,8 @@ module Parser
     end
 
     def self.get_periodo_mapa(periodo, boletas)
-      mapa = {
-        mes_inicio: periodo[:mes_inicio],
-        mes_final: periodo[:mes_final],
-        year: periodo[:year],
+      mapa = { 
+        nombre: periodo,
         boletas: boletas
       }
       mapa
@@ -160,32 +159,6 @@ module Parser
             calificacion: info[:final]
           }
         ]
-      }
-      mapa
-    end
-
-    # Este método obtiene la duración de un periodo
-    # * *Argumentos*  :
-    #   - +periodo+ -> El texto que equivale a todo el periodo.
-    # * *Retorna*     :
-    #   - +mapa+ -> Un mapa con la duración del periodo
-    def self.get_periodo(periodo)
-      arr = periodo.split
-      # Si el texto se presenta así: Periodo: AGO - DIC 2016
-      if arr.count == 5 then
-        mes_inicio = get_mes_num(arr[1].strip)
-        mes_final = if arr[3].class == nil.class then 0 else get_mes_num(arr[3][0..2].strip) end
-        year = arr[4].to_i
-      # Si el texto se presenta así: Periodo: AGOSTO 2016
-      else
-        mes_inicio = get_mes_num(arr[1][0..2].strip)
-        mes_final = 0
-        year = arr[2].to_i
-      end
-      mapa = {
-        mes_inicio: mes_inicio,
-        mes_final: mes_final,
-        year: year
       }
       mapa
     end
