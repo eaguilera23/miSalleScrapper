@@ -35,7 +35,7 @@ class RouterV1 < Sinatra::Base
         ErrorHelper.login.to_json
       end
     else
-      status 420
+      status 460
       ErrorHelper.login.to_json
     end
   end
@@ -79,7 +79,7 @@ class RouterV1 < Sinatra::Base
         ErrorHelper.login.to_json
       end
     else
-      status 420
+      status 460
       ErrorHelper.login.to_json
     end
   end
