@@ -72,7 +72,7 @@ module Parser
         return pila
       end
 
-      if parrafos.last.content.include?('Periodo') then 
+      if parrafos.last != nil and parrafos.last.content.include?('Periodo') then 
         periodo = parrafos.pop.content
         periodo = periodo.slice(9..-1)
         periodo_mapa = get_periodo_mapa(periodo, boletas)
@@ -93,7 +93,11 @@ module Parser
     # * *Retorna*     :
     #   - +boletas+ -> Un arreglo con mapas, siendo todas las boletas obtenidas del periodo, incluyendo el +acumulador+
     def self.boletas(tabla, parrafo,  acumulador)
-      tipo = parrafo.content
+      tipo = ""
+      if parrafo != nil then
+        tipo = parrafo.content
+      end
+
       boletas = []
 
       rows = tabla.xpath("tr") 
