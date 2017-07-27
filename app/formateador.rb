@@ -34,6 +34,7 @@ module Formateador
           nombre: mapa[:informacion][:nombre],
           apellido_p: mapa[:informacion][:apellido_p],
           apellido_m: mapa[:informacion][:apellido_m],
+          email: mapa[:informacion][:email],
           usuario: {
             matricula: mapa[:matricula],
             password: mapa[:password]
