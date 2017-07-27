@@ -4,7 +4,8 @@ require 'sinatra/activerecord'
 require_relative 'formateador'
 require_relative 'helpers/error_helper'
 require_relative 'helpers/login_helper'
-require_relative 'publicidad/publicidad'
+require_relative 'controllers/publicidad'
+require_relative 'controllers/registro'
 Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
 
 class RouterV1 < Sinatra::Base
@@ -23,7 +24,7 @@ class RouterV1 < Sinatra::Base
     if LoginHelper.check_params(@matricula, @password) then
       nav = Navegador.new(@matricula, @password)
       if nav.login then
-        @usuario = Usuario.create(:matricula => @matricula)
+        RegistroController.registrar_usuario(@matricula)
         mapa = nav.parsear
         info = Formateador::Alumno::V1.formatear(mapa)
         # Fechas de pago en ISO standard (yyyy-MM-dd)
@@ -86,7 +87,7 @@ class RouterV1 < Sinatra::Base
 
   post '/anuncio' do
     @json = JSON.parse(request.body.read)
-    anuncio = Publicidad.mostrar_anuncio
+    anuncio = PublicidadController.mostrar_anuncio
     info = Formateador::Anuncio::V1.formatear(anuncio)
     content_type :json, :charset => 'utf-8'
     info.to_json
@@ -94,7 +95,7 @@ class RouterV1 < Sinatra::Base
 
   post '/click' do
     @json = JSON.parse(request.body.read)
-    Publicidad.registrar_click(@json["campaign_id"], @json["matricula"])
+    PublicidadController.registrar_click(@json["campaign_id"], @json["matricula"])
     status 200
   end
   ###################################

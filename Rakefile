@@ -4,6 +4,6 @@
 
  namespace :db do
    task :load_config do
-       require "./app/router"
+       require "./app/router_v1"
    end
  end

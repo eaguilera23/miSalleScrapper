@@ -3,7 +3,7 @@ require 'sinatra/activerecord'
 require_relative "#{dir_pwd}/app/modelos/campaign.rb"
 require_relative "#{dir_pwd}/app/modelos/anuncio.rb"
 require_relative "#{dir_pwd}/app/modelos/anunciante.rb"
-module Publicidad
+module PublicidadController
   module_function
 
   def mostrar_anuncio
