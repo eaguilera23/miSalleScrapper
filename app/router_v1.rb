@@ -24,11 +24,12 @@ class RouterV1 < Sinatra::Base
     if LoginHelper.check_params(@matricula, @password) then
       nav = Navegador.new(@matricula, @password)
       if nav.login then
-        RegistroController.registrar_usuario(@matricula)
+        token_usuario = RegistroController.registrar_usuario(@matricula)
         mapa = nav.parsear
         info = Formateador::Alumno::V1.formatear(mapa)
         # Fechas de pago en ISO standard (yyyy-MM-dd)
         info[:pagos] = Pago.all
+        info[:token] = token_usuario
         content_type :json, :charset => 'utf-8'
         info.to_json
       else
