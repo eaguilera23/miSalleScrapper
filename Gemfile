@@ -7,6 +7,7 @@ gem "pg"
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
+gem "jwt"
 
 group :test, :development do
   gem "pry"
