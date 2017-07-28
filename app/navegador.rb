@@ -8,6 +8,7 @@ require_relative 'formateador'
 class Navegador
 
   @@url
+  @@url_login
   @@pag_principal
   @@pag_horario
   @@pag_periodos
@@ -23,6 +24,7 @@ class Navegador
 
   def initialize(matricula, password)
     @@url = "http://207.249.157.32/cgi-bin/r.cgi/Consulta/"
+    @@url_login = "http://bajio.delasalle.edu.mx/login.php"
     @@url_principal = "principal.r"
     @@url_terminacion = "?sistema=1&matricula="
     @@pag_principal = "w0400501.r"
@@ -36,25 +38,22 @@ class Navegador
 
     @@agent = Mechanize.new
     @@agent.user_agent_alias = 'Mac Safari'
+    @@agent.follow_meta_refresh = true
   end
 
 
   def login
-    page = @@agent.get(@@url + @@url_principal)
-    form = page.form('form1')
-    page = @@agent.submit(form)
+    page = @@agent.get(@@url_login)
 
-    form = page.form('form1')
-    form.matricula = @@matricula
-    form.nip = @@password
-    page = @@agent.submit(form)
-    if page.css(".errormensaje").count < 1 then
+    form = page.form(:id => 'frmLogin')
+    form.txtUsuario = matricula_con_ceros(@@matricula)
+    form.txtPass = @@password
+    login_page = @@agent.submit(form, form.buttons.first)
+    if login_page.css(".error").count < 1 then
       return true
     else
       return false
     end
-    # Como unir todos los jsons:
-    # http://stackoverflow.com/questions/13990523/how-to-append-json-objects-together-in-ruby
   end
 
   def parsear
@@ -119,5 +118,14 @@ class Navegador
 private
     def get_url(pag)
       @@url + pag + @@url_terminacion + @@matricula
+    end
+
+    def matricula_con_ceros(matricula)
+      matricula_ceros = matricula.to_s
+      while matricula_ceros.length < 8 do
+        matricula_ceros = "0" + matricula_ceros
+      end
+
+      matricula_ceros
     end
 end
