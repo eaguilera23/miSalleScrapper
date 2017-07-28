@@ -1,5 +1,4 @@
 require 'sinatra/activerecord'
-require_relative "#{Dir.pwd}/app/helpers/token_helper.rb"
 Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
 
 module RegistroController
@@ -7,9 +6,13 @@ module RegistroController
 
   def registrar_usuario(matricula)
     usuario = Usuario.find_by(matricula: matricula)
+    nuevo_ingreso = false
     if usuario == nil then
       Usuario.create(:matricula => matricula)
+      nuevo_ingreso = true
     end
+
+    nuevo_ingreso
   end
 
 end
