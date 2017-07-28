@@ -10,8 +10,6 @@ module RegistroController
     if usuario == nil then
       Usuario.create(:matricula => matricula)
     end
-    token = TokenHelper.create_custom_token(matricula)
-    token
   end
 
 end
