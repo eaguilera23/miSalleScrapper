@@ -21,18 +21,27 @@ class RouterV1 < Sinatra::Base
     @json = JSON.parse(request.body.read)
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
+    @sistema = @json["sistema"]
 
-    if LoginHelper.check_params(@matricula, @password) then
-      nav = Navegador.new(@matricula, @password)
+    if LoginHelper.check_params(@matricula, @password, @sistema) then
+      nav = Navegador.new(@matricula, @password, @sistema)
       if nav.login then
-        nuevo_ingreso = RegistroController.registrar_usuario(@matricula)
-        mapa = nav.parsear
-        info = Formateador::Alumno::V1.formatear(mapa)
-        # Fechas de pago en ISO standard (yyyy-MM-dd)
-        info[:pagos] = Pago.all
-        info[:nuevo_ingreso] = nuevo_ingreso ? 1 : 0
-        content_type :json, :charset => 'utf-8'
-        info.to_json
+
+        begin
+          mapa = nav.parsear
+          info = Formateador::Alumno::V1.formatear(mapa)
+          # Fechas de pago en ISO standard (yyyy-MM-dd)
+          info[:pagos] = Pago.all
+          nuevo_ingreso = RegistroController.registrar_usuario(@matricula, @sistema)
+          info[:nuevo_ingreso] = nuevo_ingreso ? 1 : 0
+          content_type :json, :charset => 'utf-8'
+          info.to_json
+        rescue NoMethodError
+
+          status 420
+          ErrorHelper.login.to_json
+        end
+
       else
         status 420
         ErrorHelper.login.to_json
@@ -47,14 +56,20 @@ class RouterV1 < Sinatra::Base
     @json = JSON.parse(request.body.read)
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
+    @sistema = @json["sistema"]
 
-    if LoginHelper.check_params(@matricula, @password) then
-      nav = Navegador.new(@matricula, @password)
+    if LoginHelper.check_params(@matricula, @password, @sistema) then
+      nav = Navegador.new(@matricula, @password, @sistema)
       if nav.login then
-        creditos = nav.creditos
-        info = Formateador::Creditos::V1.formatear(creditos)
-        content_type :json, :charset => 'utf-8'
-        info.to_json
+        begin
+          creditos = nav.creditos
+          info = Formateador::Creditos::V1.formatear(creditos)
+          content_type :json, :charset => 'utf-8'
+          info.to_json
+        rescue NoMethodError
+          status 420
+          ErrorHelper.login.to_json
+        end
       else
         status 420
         ErrorHelper.login.to_json
@@ -69,14 +84,20 @@ class RouterV1 < Sinatra::Base
     @json = JSON.parse(request.body.read)
     @matricula = @json["matricula"].to_i.to_s
     @password = @json["password"]
+    @sistema = @json["sistema"]
 
-    if LoginHelper.check_params(@matricula, @password) then
-      nav = Navegador.new(@matricula, @password)
+    if LoginHelper.check_params(@matricula, @password, @sistema) then
+      nav = Navegador.new(@matricula, @password, @sistema)
       if nav.login then
-        periodos, info_map = nav.periodos
-        info = Formateador::Periodos::V1.formatear(periodos) 
-        content_type :json, :charset => 'utf-8'
-        info.to_json
+        begin
+          periodos, info_map = nav.periodos
+          info = Formateador::Periodos::V1.formatear(periodos) 
+          content_type :json, :charset => 'utf-8'
+          info.to_json
+        rescue NoMethodError
+          status 420
+          ErrorHelper.login.to_json
+        end
       else
         status 420
         ErrorHelper.login.to_json

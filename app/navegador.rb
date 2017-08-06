@@ -22,11 +22,11 @@ class Navegador
 
   @@agent
 
-  def initialize(matricula, password)
+  def initialize(matricula, password, sistema)
     @@url = "http://207.249.157.32/cgi-bin/r.cgi/Consulta/"
     @@url_login = "http://bajio.delasalle.edu.mx/login.php"
     @@url_principal = "principal.r"
-    @@url_terminacion = "?sistema=1&matricula="
+    @@url_terminacion = "?sistema=#{sistema}&matricula="
     @@pag_principal = "w0400501.r"
     @@pag_horario = "w0400501.r"
     @@pag_periodos = "w0400301.r"
