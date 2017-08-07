@@ -1,4 +1,4 @@
-Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
+Dir["#{Dir.pwd}/modelos/*.rb"].each { |file| require file }
 module SetupHelper
   module_function
 
