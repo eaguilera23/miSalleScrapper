@@ -1,4 +1,5 @@
-Dir["#{Dir.pwd}/modelos/*.rb"].each { |file| require file }
+require_relative "#{Dir.pwd}/app/router_v1.rb"
+Dir["#{Dir.pwd}/app/modelos/*.rb"].each { |file| require file }
 module SetupHelper
   module_function
 
@@ -46,4 +47,6 @@ module SetupHelper
     Campus.create(sistema: 12)
     Campus.create(sistema: 13)
   end
+
+  default()
 end
