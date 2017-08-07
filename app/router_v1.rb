@@ -29,6 +29,7 @@ class RouterV1 < Sinatra::Base
 
         begin
           mapa = nav.parsear
+          mapa[:sistema] = @sistema
           info = Formateador::Alumno::V1.formatear(mapa)
           # Fechas de pago en ISO standard (yyyy-MM-dd)
           info[:pagos] = Pago.all

@@ -37,7 +37,8 @@ module Formateador
           email: mapa[:informacion][:email],
           usuario: {
             matricula: mapa[:matricula],
-            password: mapa[:password]
+            password: mapa[:password],
+            sistema: mapa[:sistema]
           },
           campus: {nombre: mapa[:info_map][:campus]},
           programa: {nombre: mapa[:info_map][:programa]},
