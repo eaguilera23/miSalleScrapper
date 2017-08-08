@@ -74,10 +74,8 @@ class Navegador
   end
 
   def horario
-    #url = get_url(@@pag_horario)
-    #page = @@agent.get(url)
-    
-    page = @@agent.get("http://pruebatarea2302.herokuapp.com/api/v1/mihorario")
+    url = get_url(@@pag_horario)
+    page = @@agent.get(url)
 
     page.encoding = @@pag_encoding
     clases = Parser::Horario.parsear(page)

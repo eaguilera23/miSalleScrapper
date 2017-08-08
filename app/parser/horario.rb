@@ -16,8 +16,12 @@ module Parser
     def self.parsear(page)
       horario = []
       tabla_info = page.xpath("//table")[1]
-      table_help = page.xpath("//table")[2]
-      table = table_help.xpath("tbody")
+
+      # A veces cambia
+      # table_help = page.xpath("//table")[2]
+      # table = table_help.xpath("tbody")
+      
+      table = page.xpath("//table")[2]
       table.xpath('tr').each_with_index do |tr, i|
         # i = 0 son las cabeceras. A partir de ahi son las clases
         unless i == 0
