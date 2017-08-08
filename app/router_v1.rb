@@ -121,6 +121,7 @@ class RouterV1 < Sinatra::Base
     @json = JSON.parse(request.body.read)
     PublicidadController.registrar_click(@json["campaign_id"], @json["matricula"])
     status 200
+    Click.new.to_json
   end
 
   post '/feedback' do
@@ -132,6 +133,7 @@ class RouterV1 < Sinatra::Base
       feedback = Feedback.new(texto: @feedback, usuario: usuario)
       if feedback.save then
         status 200
+        Feedback.new.to_json
       end
     else
       status 470
