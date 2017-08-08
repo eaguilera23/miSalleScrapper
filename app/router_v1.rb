@@ -122,6 +122,22 @@ class RouterV1 < Sinatra::Base
     PublicidadController.registrar_click(@json["campaign_id"], @json["matricula"])
     status 200
   end
+
+  post '/feedback' do
+    @json = JSON.parse(request.body.read)
+    @matricula = @json["matricula"]
+    @feedback = @json["texto"]
+    usuario = Usuario.find_by(matricula: @matricula)
+    if usuario != nil then
+      feedback = Feedback.new(texto: @feedback, usuario: usuario)
+      if feedback.save then
+        status 200
+      end
+    else
+      status 470
+      ErrorHelper.feedback.to_json
+    end
+  end
   ###################################
   # RUTAS PARA FACILITAR DESARROLLO #
   ###################################
