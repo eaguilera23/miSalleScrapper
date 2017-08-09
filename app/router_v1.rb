@@ -13,10 +13,6 @@ class RouterV1 < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   set :server, 'webrick'
 
-  get '/' do
-    "Hello World v1"
-  end
-
   post '/alumno' do
     @json = JSON.parse(request.body.read)
     @matricula = @json["matricula"].to_i.to_s
