@@ -3,7 +3,21 @@ $(document).ready(function(){
   //add campus starts
   $("#campus-send").click(function(){
     var campus_email = $("#email-campus-input").val();
-    alert(campus_email);
+    if (campus_email !== ""){
+      if (isValidEmailAddress(campus_email)){
+        $.post("/campus", {"email": campus_email}, function(data, status){
+          $("#campus-send").html("¡Gracias!");
+          $("#email-campus-input").val("Pronto nos comunicaremos contigo");
+          $("#email-campus-input").prop('disabled', true);
+          $("#campus-send").prop('disabled', true);
+        });
+        alert("email_correcto");
+      }else{
+        alert("email incorrecto");
+      }
+    }else{
+      alert("email vacio");
+    }
   });
   //ad campus ends
 
@@ -28,4 +42,9 @@ $(document).ready(function(){
     alert(ad_package);
   });
   //ad form ends
+
+  function isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
+    return pattern.test(emailAddress);
+  };
 });

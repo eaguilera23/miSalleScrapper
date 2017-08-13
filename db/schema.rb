@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808005309) do
+ActiveRecord::Schema.define(version: 20170813002022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,10 @@ ActiveRecord::Schema.define(version: 20170808005309) do
     t.string "texto"
     t.bigint "usuario_id"
     t.index ["usuario_id"], name: "index_feedback_on_usuario_id"
+  end
+
+  create_table "interesados", force: :cascade do |t|
+    t.string "email"
   end
 
   create_table "pagos", force: :cascade do |t|
