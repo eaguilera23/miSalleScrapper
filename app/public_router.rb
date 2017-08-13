@@ -12,11 +12,11 @@ class PublicRouter < Sinatra::Base
 
 
     if email != nil then
-      existe = Interesado.find_by(email: email)
+      existe = InteresadoCampus.find_by(email: email)
       if existe != nil then
         status 200
       else
-        interesado = Interesado.new(email: email)
+        interesado = InteresadoCampus.new(email: email)
         if interesado.save then
           status 200
         end

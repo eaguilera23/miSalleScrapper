@@ -1,2 +1,2 @@
-class Interesado < ActiveRecord::Base
+class InteresadoCampus < ActiveRecord::Base
 end
