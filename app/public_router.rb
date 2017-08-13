@@ -7,4 +7,8 @@ class PublicRouter < Sinatra::Base
     redirect '/index.html'
   end
 
+  post '/campus' do
+    email = params["email"]
+  end
+
 end
