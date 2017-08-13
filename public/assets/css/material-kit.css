@@ -492,7 +492,7 @@ a .material-icons, a:hover .material-icons, a:focus .material-icons {
 .navbar .navbar-nav > li > a.btn.btn-danger.dropdown-toggle, .open >
 .navbar .navbar-nav > li > a.btn.btn-danger.dropdown-toggle:focus, .open >
 .navbar .navbar-nav > li > a.btn.btn-danger.dropdown-toggle:hover {
-  background-color: #f44336;
+  background-color: #FF9400;
   color: #FFFFFF;
 }
 .btn.btn-danger:focus, .btn.btn-danger:active, .btn.btn-danger:hover,
@@ -1430,7 +1430,7 @@ output {
   transition-duration: 0.3s;
 }
 .form-group.is-focused .form-control .material-input:after {
-  background-color: #9c27b0;
+  background-color: #FF9400;
 }
 .form-group.is-focused label,
 .form-group.is-focused label.control-label {

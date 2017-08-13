@@ -108,7 +108,7 @@ Form Styling
 .form-control, 
 .form-group .form-control,
 .form-group.is-focused .form-control {
-    background-image: linear-gradient(#f96332, #f96332), linear-gradient(#D2D2D2, #D2D2D2);
+    background-image: linear-gradient(#FF9400, #FF9400), linear-gradient(#D2D2D2, #D2D2D2);
 }
 
 .form-group.is-focused label,

@@ -1,6 +1,6 @@
 require 'sinatra/base'
 
-use Rack::Static, :urls => ['/index.html', '/assets', '/style.css', '/'], :root => 'public'
+use Rack::Static, :urls => ['/index.html', '/assets', '/style.css'], :root => 'public'
 
 Dir.glob('./app/*.rb').each { |file| require file }
 Dir.glob('./app/parser/*.rb').each { |file| require file }
