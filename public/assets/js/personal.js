@@ -24,14 +24,14 @@ $(document).ready(function(){
 
   // ad form starts
   $("#more-info-basic").click(function(){
-    $("input#ad-package-input").val("1");
+    $("input#ad-package-input").val("0");
   });
 
   $("#more-info-estandard").click(function(){
-        $("input#ad-package-input").val("2");
+        $("input#ad-package-input").val("1");
   });
   $("#more-info-personalizado").click(function(){
-        $("input#ad-package-input").val("3");
+        $("input#ad-package-input").val("2");
   });
 
   $("#ad-send").click(function(){
@@ -39,7 +39,23 @@ $(document).ready(function(){
     var company = $("#ad-company-input").val();
     var email = $("#ad-email-input").val();
     var ad_package = $("input#ad-package-input").val();
-    alert(ad_package);
+
+    var data = {"name": name, "company": company, "email": email, "package": ad_package}
+    
+    if (name !== "" && company !== "" && email !== "" && ad_package !== "") {
+      if (isValidEmailAddress(email)) {
+        $.post("/anuncio", data, function(data, status){
+          $("#success-banner").css("visibility", "visible");
+          $("#ad-modal").removeClass("in");
+          $("#ad-modal-title").text("Pronto nos comunicaremos contigo");
+          $("#ad-send").prop('disabled', true);
+        });
+      }else{
+          alert("Ingresa un email válido");
+      }
+    }else{
+        alert("Llena todos los campos por favor");
+      }
   });
   //ad form ends
 

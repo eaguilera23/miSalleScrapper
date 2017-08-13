@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170813013259) do
+ActiveRecord::Schema.define(version: 20170813015124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 20170813013259) do
     t.string "texto"
     t.bigint "usuario_id"
     t.index ["usuario_id"], name: "index_feedback_on_usuario_id"
+  end
+
+  create_table "interesado_anuncio", force: :cascade do |t|
+    t.string "nombre"
+    t.string "empresa"
+    t.string "email"
+    t.integer "paquete"
   end
 
   create_table "interesado_campus", force: :cascade do |t|
