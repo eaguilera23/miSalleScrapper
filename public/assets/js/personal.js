@@ -11,7 +11,6 @@ $(document).ready(function(){
           $("#email-campus-input").prop('disabled', true);
           $("#campus-send").prop('disabled', true);
         });
-        alert("email_correcto");
       }else{
         alert("email incorrecto");
       }
