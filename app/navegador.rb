@@ -110,7 +110,7 @@ class Navegador
   # DESARROLLO #
   ##############
   def self.new_matricula(matricula)
-    self.new(matricula, "Password01")
+    self.new(matricula, "Password01", 1)
   end
 
 private
