@@ -3,7 +3,7 @@
 # miSalle
 
 miSalle fue un producto dirigido a los alumnos de la Universidad De La Salle Bajío,
-hecho por un alumno, pero fue bloqueado por la administración de la universidad.
+hecho por un alumno, pero el servidor de la app fue bloqueado por la administración de la institución.
 
 En este repositorio encontrarás la parte del servidor que obtiene la información de los alumnos,
 y la regresa como un `json` listo para su consumo.
@@ -83,6 +83,8 @@ curl -H "Content-Type: application/json" -X POST -d '{"matricula": "XXXXX", "pas
 ```
 
 ### Descripción del sistema (en progreso)
+
+El login solo es para verificación de los datos. Para no necesitar el login, dirígete a `navegador.rb`
 
 En este archivo se encuentra la lógica sobre la navegación a las diferentes rutas de la universidad,
 para la obtención de los datos. Específicamente en el método `Navegador.parsear`
