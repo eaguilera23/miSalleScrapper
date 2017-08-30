@@ -62,7 +62,7 @@ Ejemplo de sistema:
   - Licenciatura 2: 21
   - Preparatoria: 23
   - Especialidad: 25
-  - Maestría
+  - Maestría: 26
 - San Francisco del Rincón
   - Secundaria: 12
   - Preparatoria: 13
