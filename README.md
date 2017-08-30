@@ -67,6 +67,7 @@ Ejemplo de sistema:
   - Secundaria: 12
   - Preparatoria: 13
 
+Información de un alumno:
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"matricula": "XXXXX", "password": "XXXXXX", "sistema": X}' http://localhost:3000/api/v1/alumno
 ```
