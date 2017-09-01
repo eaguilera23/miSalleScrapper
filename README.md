@@ -133,7 +133,7 @@ parser/
 Los alumnos de la Universidad De La Salle Bajío no tiene una forma natural de consumir su información relevante
 a la comunidad. Con natural se refiere a nativo en la plataforma en donde se esté consumiendo.
 
-### Impacto al alumno y a la institución (#impacto)
+### Impacto al alumno y a la institución
 
 **Alumno**
 
@@ -239,7 +239,7 @@ Es la principal fuente del sistema
 1. En la arquitectura se observa que el scrapper estará en un nivel diferente, hospedado en Heroku. Cada 24 hrs Heroku reinicia los dynos, proporcionándole una nueva ip. En caso de que el bloqueo suceda antes, se puede reiniciar el dyno manualmente.
 2. La información al ser semi-estática, se guardará en el dispositivo del usuario, para no depender del sitio de La Salle para el acceso de su información, así en cualquier evento, la interacción de los usuarios ya registrados en el sistema no se verá afectada
 
-### Cambio de formato en sitio web de La Salle (#cambioSalle)
+### Cambio de formato en sitio web de La Salle
 
 #### Descripción
 El sistema al hacer scrapping al sitio de La Salle, depende del como la información es presentada en el buscador. Si la institución decide cambiar el esquema del html, el scrapper dejaría de funcionar efectivamente
