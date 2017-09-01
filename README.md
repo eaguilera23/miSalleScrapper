@@ -113,20 +113,35 @@ parser/
     1.4 [Antecedentes](#antecedentes)
 
     1.5 [Objetivo](#objetivo)
+
     1.6 [Alcance](#alcance)
+
     1.7 [Fuera del alcance](#fuera-del-alcance)
+
     1.8 [Costo](#costo)
+
     1.9 [Beneficio](#beneficio)
+
     1.10 [Futuro](#futuro)
+
     1.11 [Requerimientos Funcionales](#requerimientos-funcionales)
+
     1.12 [Requerimientos No Funcionales](#requerimientos-no-funcionales)
+
     1.13 [Riesgos](#riesgos)
+
     1.14 [Análisis de sistema](#análisis-de-sistema)
+
     1.15 [Análisis de pantallas](#análisis-de-pantallas)
+
 2. [Diseño de sistema](#diseño-de-sistema)
+
     2.1 [Diagrama de clases](#diagrama-de-clases)
+
     2.2 [Módulos de arquitectura](#módulos-de-arquitectura)
+
     2.3 [Paletas de colores](#paletas-de-colores)
+
     2.4 [Prototipo UI](#prototiopo-ui)
 
 # Análisis
