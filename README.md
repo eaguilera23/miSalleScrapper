@@ -106,9 +106,9 @@ parser/
 
     1.1 [Análisis](#análisis-base)
 
-    1.2 [Descripción del problema](#descripcion-del-problema)
+    1.2 [Descripción del problema](#descripción-del-problema)
 
-    1.3 [Impacto al alumno y a la institución](#impacto-al-alumno-y-a-la-institucion)
+    1.3 [Impacto al alumno y a la institución](#impacto-al-alumno-y-a-la-institución)
 
     1.4 [Antecedentes](#antecedentes)
 
@@ -142,7 +142,7 @@ parser/
 
     2.3 [Paletas de colores](#paletas-de-colores)
 
-    2.4 [Prototipo UI](#prototiopo-ui)
+    2.4 [Prototipo UI](#prototipo-ui)
 
 # Análisis
 
