@@ -136,7 +136,7 @@ parser/
 
 2. [Diseño de sistema](#diseño-de-sistema)
 
-    2.1 [Diagrama de clases](#diagrama-de-clases)
+    2.1 [Diagrama de clases](#diagrama-de-clases) (Puede estar desactualizado)
 
     2.2 [Módulos de arquitectura](#módulos-de-arquitectura)
 
