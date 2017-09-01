@@ -144,6 +144,8 @@ parser/
 
     2.4 [Prototipo UI](#prototipo-ui)
 
+3. [Agradecimientos](#agradecimientos)
+
 # Análisis
 
 ## Análisis Base
@@ -341,3 +343,8 @@ El equipo de trabajo no cuenta con la experiencia necesaria para poder calcular 
 ## Prototipo UI
 
 ![](img_assets/prototipo.JPG)
+
+# Agradecimientos
+
+Un agradecimiento especial a Andrea Hernández De Alba, por su colaboración inicial en el proyecto, proporcionando
+el diseño de la interfaz gráfica, así como parte de su desarrollo en la aplicación de Android.
