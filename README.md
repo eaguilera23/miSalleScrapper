@@ -103,10 +103,15 @@ parser/
 # Documentación
 
 1. [Análisis](#análisis)
+
     1.1 [Análisis](#análisis-base)
+
     1.2 [Descripción del problema](#descripcion-del-problema)
+
     1.3 [Impacto al alumno y a la institución](#impacto-al-alumno-y-a-la-institucion)
+
     1.4 [Antecedentes](#antecedentes)
+
     1.5 [Objetivo](#objetivo)
     1.6 [Alcance](#alcance)
     1.7 [Fuera del alcance](#fuera-del-alcance)
