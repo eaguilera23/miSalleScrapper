@@ -2,7 +2,14 @@
 
 # miSalle
 
-Ir a la [documentación](#documentación)
+## Índice
+
+1. [Presentación](#presentación)
+2. [Documentación](#documentación)
+3. [API Spec](#api-spec)
+4. [Agradecimientos](#agradecimientos)
+
+## Presentación
 
 miSalle fue un producto dirigido a los alumnos de la Universidad De La Salle Bajío,
 hecho por un alumno, pero el servidor de la app fue bloqueado por la administración de la institución.
@@ -10,7 +17,7 @@ hecho por un alumno, pero el servidor de la app fue bloqueado por la administrac
 En este repositorio encontrarás la parte del servidor que obtiene la información de los alumnos,
 y la regresa como un `json` listo para su consumo.
 
-## Features
+## Características
 
 Con miSalle puedes obtener:
 
@@ -343,6 +350,212 @@ El equipo de trabajo no cuenta con la experiencia necesaria para poder calcular 
 ## Prototipo UI
 
 ![](img_assets/prototipo.JPG)
+
+# API Spec
+
+## Alumno
+
+### Ruta
+
+```
+/alumno
+```
+
+### Descripción
+
+En el siguiente endpoint se obtendrá toda la información del alumno. Esto incluye:
+
+- Información
+- Horario
+- Créditos
+- Periodos
+- Fechas de pago
+
+### Método
+
+`POST`
+
+### Parámetros
+
+`{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
+
+### Respuesta (200)
+
+```
+{
+  "matricula": "XXX",
+  "nombre": "XXXX",
+  "apellido_p": "XXXX",
+  "apellido_m": "XXXX",
+  "email": "XXXXX",
+  "usuario": {
+    "matricula": "XXXX",
+    "password": "XXXX",
+    "sistema": 1
+  },
+  "campus": {
+    "nombre": "XXXXXX"
+  },
+  "programa": {
+    "nombre": "XXXXX"
+  },
+  "creditos": [{
+    "tipo": "XXXXX",
+    "necesarios": 0,
+    "actuales": 0
+  }, {
+    "tipo": "XXXX",
+    "necesarios": 0,
+    "actuales": 0
+  }, {
+    "tipo": "XXXX",
+    "necesarios": 0,
+    "actuales": 0
+  }],
+  "clases": [{
+    "dia": 1,
+    "hora_inicio": 14,
+    "hora_final": 16,
+    "materia": {
+      "nombre": "XXXX"
+    },
+    "profesor": {
+      "nombre": "XXXXXX"
+    }
+  }],
+  "periodos": [{
+    "nombre": "XXXXX",
+    "boletas": [{
+      "tipo": "XXXXX",
+      "materia": {
+        "nombre": "XXXXX"
+      },
+      "profesor": {
+        "nombre": "XXXXX"
+      },
+      "faltas": 0,
+      "parciales": [{
+        "numero": 1,
+        "calificacion": 0.0
+      }, {
+        "numero": 2,
+        "calificacion": 0.0
+      }, {
+        "numero": 3,
+        "calificacion": 0.0
+      }, {
+        "numero": 4,
+        "calificacion": 0.0
+      }, {
+        "numero": 5,
+        "calificacion": 0.0
+      }]
+    }]
+  }],
+  "pagos": [{
+    "id": 1,
+    "fecha": "2017-08-11"
+  }],
+  "nuevo_ingreso": 0
+}
+```
+
+## Créditos
+
+### Ruta
+
+```
+/creditos
+```
+
+### Descripción
+
+En el siguiente endpoint se obtendrán los créditos de un alumno
+
+### Método
+
+`POST`
+
+### Parámetros
+
+`{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
+
+### Respuesta (200)
+
+```
+{
+  "creditos": [{
+    "tipo": "Solidaridad",
+    "necesarios": 30,
+    "actuales": 33
+  }, {
+    "tipo": "Cultural",
+    "necesarios": 30,
+    "actuales": 33
+  }, {
+    "tipo": "Deportivo",
+    "necesarios": 30,
+    "actuales": 32
+  }]
+}
+```
+
+## Periodos
+
+### Ruta
+
+```
+/periodos
+```
+
+### Descripción
+
+En el siguiente endpoint se obtendrán los periodos de un alumno
+
+### Método
+
+`POST`
+
+### Parámetros
+
+`{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
+
+### Respuesta (200)
+
+```
+{
+  "periodos": [{
+    "nombre": "XXXXX",
+    "boletas": [{
+      "tipo": "XXXXX",
+      "materia": {
+        "nombre": "XXXXX"
+      },
+      "profesor": {
+        "nombre": "XXXXX"
+      },
+      "faltas": 0,
+      "parciales": [{
+        "numero": 1,
+        "calificacion": 0.0
+      }, {
+        "numero": 2,
+        "calificacion": 0.0
+      }, {
+        "numero": 3,
+        "calificacion": 0.0
+      }, {
+        "numero": 4,
+        "calificacion": 0.0
+      }, {
+        "numero": 5,
+        "calificacion": 0.0
+      }]
+    }]
+  }]
+}
+```
+
 
 # Agradecimientos
 
