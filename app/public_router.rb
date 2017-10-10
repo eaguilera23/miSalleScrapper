@@ -7,6 +7,10 @@ class PublicRouter < Sinatra::Base
     redirect '/index.html'
   end
 
+  get '/es' do
+    redirect '/index_ES.html'
+  end
+
   get '/privacidad' do
     redirect '/privacidad.pdf'
   end
