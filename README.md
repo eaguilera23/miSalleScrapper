@@ -536,5 +536,4 @@ En el siguiente endpoint se obtendrán los periodos de un alumno
 
 # Aknowledgements
 
-Un agradecimiento especial a Andrea Hernández De Alba, por su colaboración inicial en el proyecto, proporcionando
-el diseño de la interfaz gráfica, así como parte de su desarrollo en la aplicación de Android.
+A special mention to Andrea Hernández De Alba, for her initial colaboration in the proyecto, making the UI design, the frontend and part of the development of the Android app.
