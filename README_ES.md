@@ -2,66 +2,39 @@
 
 # miSalle
 
-## Table of contents
+## Índice
 
-1. [Presentation](#presentation)
-  1.1. [Characteristics](#characteristics)
-  1.2. [Requirements](#requirements)
-  1.3. [Instalation](#instalation)
-  1.4. [Usage](#usage)
-  1.5. [Routes](#routes)
-  1.6. [System description](#system-description)
-2. [Documentation](#documentation)
-  2.1. [Analysis](#analysis)
-    2.1.1. [Problem description](#problem-description)
-    2.1.2. [Impact](#impact)
-    2.1.3. [Background](#background)
-    2.1.4. [Objective](#objective)
-    2.1.5. [Scope](#scope)
-    2.1.6. [Out Of Scope](#out-of-scope)
-    2.1.7. [Cost](#cost)
-    2.1.8. [Benefit](#benefit)
-    2.1.9. [Future](#future)
-    2.1.10. [Functional Requirements](#functional-requirements)
-    2.1.11. [Non Functional Requirements](#non-functional-requirements)
-    2.1.12. [Risks](#risks)
-    2.1.13. [High Level Design](#high-level-design)
-    2.1.14. [Data Flow Analysis](#data-flow-analysis)
-    2.1.15. [Screen Analysis](#screen-analysis) 
-  2.2. [System Design](#system-design)
-    2.2.1. [Class Diagram](#class-diagram) (May be outdated)
-    2.2.2. [Architecture Modules](#architecture-modules)
-    2.2.3. [Color Palette](#color-palette)
-    2.2.4. [UI prototype](#ui-prototype)
-  2.3. [API Spec](#api-spec)
-3. [Aknowledgements](#aknowledgements)
+1. [Presentación](#presentación)
+2. [Documentación](#documentación)
+3. [API Spec](#api-spec)
+4. [Agradecimientos](#agradecimientos)
 
-## Presentation
+## Presentación
 
-miSalle was a product for the students of the Universidad De La Salle Bajío,
-but the server was blocked due to conflict of interests by the institution administration.
+miSalle fue un producto dirigido a los alumnos de la Universidad De La Salle Bajío,
+hecho por un alumno, pero el servidor de la app fue bloqueado por la administración de la institución.
 
-In this repository you will find the server side of the product, which gets the students information from
-the university system, and returns it as a 'json' for its manipulation.
+En este repositorio encontrarás la parte del servidor que obtiene la información de los alumnos,
+y la regresa como un `json` listo para su consumo.
 
-### Characteristics
+## Características
 
-With miSalle you can get:
+Con miSalle puedes obtener:
 
-- Student personal information
-- Schedule
-- Credits
-- Grades 
+- Información del alumno
+- Horario
+- Créditos
+- Calificaciones 
 
-### Requirements
+## Prerequisitos
 
-You will need to run miSalleScrapper:
+Para utilizar miSalle necesitarás:
 
 - `ruby 2.4.0`
 - `postgresql`
 - `bundle`
 
-### Instalation
+## Instalación
 
 ```
 $ git clone https://github.com/lalo2302/miSalleScrapper.git
@@ -71,18 +44,18 @@ $ rake db:create
 $ rake db:migrate
 ```
 
-### Usage
+## Usar
 
-For running miSalleScrapper:
+Para correr miSalle:
 ```
 bundle exec rakup -p 3000
 ```
 
-### Routes
+### Usar rutas
 
-To get the student information, you need its enrollment number, password and system:
+Para obtener la información del alumno, teniendo su matricula, contraseña y sistema:
 
-System numbers:
+Ejemplo de sistema:
 
 - Lomas del campestre:
   - Licenciatura: 1
@@ -103,45 +76,93 @@ System numbers:
   - Secundaria: 12
   - Preparatoria: 13
 
-All the student information:
+Información de un alumno:
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"matricula": "XXXXX", "password": "XXXXXX", "sistema": X}' http://localhost:3000/api/v1/alumno
 ```
 
-Student credits:
+Créditos de un alumno:
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"matricula": "XXXXX", "password": "XXXXXX", "sistema": X}' http://localhost:3000/api/v1/creditos
 ```
 
-Student grades:
+Calificaciones de un alumno:
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"matricula": "XXXXX", "password": "XXXXXX", "sistema": X}' http://localhost:3000/api/v1/periodos
 ```
 
-### System description
+### Descripción del sistema (en progreso)
 
-Every request to the system, will be processed by the file `app/router_v1.rb`
+El login solo es para verificación de los datos. Para no necesitar el login, dirígete a `navegador.rb`
 
-The university expended the username and password of the student, but the system doesn't really need those.
-I only implemented it to verify the identity of the user. If you want to get any student's information,
-go to `app/navegador.rb`
+En este archivo se encuentra la lógica sobre la navegación a las diferentes rutas de la universidad,
+para la obtención de los datos. Específicamente en el método `Navegador.parsear`
+```
+navegador.rb
+```
 
-In this file you will find the logic that navigates the university system for the data extraction.
-For further specification, go to `Navegador.parsear`
+Dependiendo qué información se desea consultar, se envia a uno de estos archivos para transformarla
+y poderla manipular
+```
+parser/
+```
 
-Once the `navegador.rb` gets the webpage needed, it sends the information to the files inside `app/parser/`. There the
-system manipulates the data to serve it as a `json`.
+# Documentación
 
-# Documentation
+1. [Análisis](#análisis)
 
-## Analysis
+    1.1 [Análisis](#análisis-base)
 
-### Problem Description
+    1.2 [Descripción del problema](#descripción-del-problema)
+
+    1.3 [Impacto al alumno y a la institución](#impacto-al-alumno-y-a-la-institución)
+
+    1.4 [Antecedentes](#antecedentes)
+
+    1.5 [Objetivo](#objetivo)
+
+    1.6 [Alcance](#alcance)
+
+    1.7 [Fuera del alcance](#fuera-del-alcance)
+
+    1.8 [Costo](#costo)
+
+    1.9 [Beneficio](#beneficio)
+
+    1.10 [Futuro](#futuro)
+
+    1.11 [Requerimientos Funcionales](#requerimientos-funcionales)
+
+    1.12 [Requerimientos No Funcionales](#requerimientos-no-funcionales)
+
+    1.13 [Riesgos](#riesgos)
+
+    1.14 [Análisis de sistema](#análisis-de-sistema)
+
+    1.15 [Análisis de pantallas](#análisis-de-pantallas)
+
+2. [Diseño de sistema](#diseño-de-sistema)
+
+    2.1 [Diagrama de clases](#diagrama-de-clases) (Puede estar desactualizado)
+
+    2.2 [Módulos de arquitectura](#módulos-de-arquitectura)
+
+    2.3 [Paletas de colores](#paletas-de-colores)
+
+    2.4 [Prototipo UI](#prototipo-ui)
+
+3. [Agradecimientos](#agradecimientos)
+
+# Análisis
+
+## Análisis Base
+
+### Descripción del problema
 
 Los alumnos de la Universidad De La Salle Bajío no tiene una forma natural de consumir su información relevante
 a la comunidad. Con natural se refiere a nativo en la plataforma en donde se esté consumiendo.
 
-### Impact
+### Impacto al alumno y a la institución
 
 **Alumno**
 
@@ -153,7 +174,7 @@ ser parte de la institución.
 Se automatizarán procesos que en la actualidad significan tiempo invertido en su ejecución. El personal podrá dedicar su
 tiempo a tareas menos repetitivas y aumentar la productividad de la institución en general.
 
-### Background
+### Antecedentes
 
 Al momento del lanzamiento del proyecto para ver:
 
@@ -172,31 +193,31 @@ Se necesitan los siguientes pasos:
 
 Al momento del lanzamiento no existía competencia como tal.
 
-### Objective
+### Objetivo
 
 Crear una solución móvil que sirva de intermediario entre el alumno y la institución
 
-### Scope
+### Alcance
 
 miSalle será un intermediario entre el actual sistema de la universidad, y los dispositivos móviles del alumno
 
-### Out Of Scope
+### Fuera del alcance
 
 Si se rompe con la relación alumno-universidad, queda fuera del alcance del proyecto
 
-### Cost
+### Costo
 
 - Recursos monetarios que cueste la insfraestructura
 - Recursos humanos
 - Tiempo inadvertido
 
-### Benefit
+### Beneficio
 
 - No hay competencia en el mercado, por lo que se podría llegar al 100% del alumnado.
 - Se abre la oportunidad de colaborar con la universidad
 - Abre la posibilidad de cambiar el esquema de enseñanza de la escuela
 
-### Future
+### Futuro
 
 A pesar del alcance que se declaró, se ve a futuro las siguientes características:
 
@@ -210,7 +231,7 @@ A pesar del alcance que se declaró, se ve a futuro las siguientes característi
 - Se ofrecerá ser un intermediario bancario entre el alumno y la universidad para pagos de colegiaturas, etc...
 - Se creará un sistma de evaluación para maestros y materias, generando retroalimentación visible para los alumnos
 
-### Functional Requirements
+## Requerimientos funcionales
 
 1. [x] El usuario inciará sesión con sus credenciales de la universidad
 2. [x] El sistema mostrará un horario que sólo recorra las horas de clase del alumno, identificando cada clase con su
@@ -223,7 +244,7 @@ nombre y el del profesor
 8. [x] El sistema mostrará el nombre, matrícula, y carrera del alumno
 9. [x] El alumno podrá subir una foto a su información personal
 
-### Non Functional Requirements
+## Requerimientos no funcionales
 
 1. El sistema consumirá la información de los alumnos a través de web scrapping
 2. La aplicación de consumo del alumno será móvil
@@ -232,65 +253,67 @@ nombre y el del profesor
 Universidad De La Salle Bajío
 5. La aplicación deberá ser capaz de mostrar la información del alumno sin una conexión a internet
 
-### Risks
+## Riesgos
 
-#### Bloqueo de ip del scrapper por parte de La Salle
+### Bloqueo de ip del scrapper por parte de La Salle
 
-##### Descripción
+#### Descripción
 Al obtener la información del sitio de La Salle por medio de scrapping, fácilmente la institución, al percatarse de la extracción de la información, puede sin ningún problema bloquear el acceso al sitio por medio de la ip.
 
-##### Severidad
+#### Severidad
 **Alta**
 Es la principal fuente del sistema
 
-##### Acción
+#### Acción
 1. En la arquitectura se observa que el scrapper estará en un nivel diferente, hospedado en Heroku. Cada 24 hrs Heroku reinicia los dynos, proporcionándole una nueva ip. En caso de que el bloqueo suceda antes, se puede reiniciar el dyno manualmente.
 2. La información al ser semi-estática, se guardará en el dispositivo del usuario, para no depender del sitio de La Salle para el acceso de su información, así en cualquier evento, la interacción de los usuarios ya registrados en el sistema no se verá afectada
 
-#### Cambio de formato en sitio web de La Salle
+### Cambio de formato en sitio web de La Salle
 
-##### Descripción
+#### Descripción
 El sistema al hacer scrapping al sitio de La Salle, depende del como la información es presentada en el buscador. Si la institución decide cambiar el esquema del html, el scrapper dejaría de funcionar efectivamente
 
-##### Severidad
+#### Severidad
 **Media**
 Esto llevaría a rediseñar el scrapper para que satisfaga las necesidades del esquema html de la institución
 
-##### Probabilidad
+#### Probabilidad
 **Baja**
 El sitio está pobremente diseñado, y al parecer fuertemente atado al cómo la información es guardada en su almacén de datos. El rediseño implica un esfuerzo enorme, que la institución no logrará a corto plazo.
 También se sabe que en el primer semestre del año, la universidad analiza y distribuye el presupuesto de la institución, poniendo a trabajar el dinero en el segundo semestre. Esto nos da tiempo para crear una base de usuarios solida y para estar listos para el nuevo ingreso en Agosto
 
-##### Acción
+#### Acción
 Diseñar el sistema de una manera que los cambios del scrapper sean en 1 sólo lugar, sin afectar la funcionalidad de todo lo demás
 
-#### Insuficiencia de fondos ($) para mantener el sistema
+### Insuficiencia de fondos ($) para mantener el sistema
 
-##### Descripción
+#### Descripción
 El equipo de trabajo actualmente no cuenta con inversionistas mayores, por lo que el proyecto se está llevando a cabo con recursos propios. Esto significa una limitada disposición de fondos para la contratación de desarrolladores y para pagar servidores
 
-##### Severidad
+#### Severidad
 **Mediana**
 En el momento que la demanda económica del proyecto crezca como para no ser capaces de soportar los gastos, significa que la base de usuarios y el tráfico son constantes, consecuentemente el valor del proyecto crece y se puede buscar una manera de financiar el proyecto con bases más sólidas
 
-##### Probabilidad
+#### Probabilidad
 **Mediana**
 El equipo de trabajo no cuenta con la experiencia necesaria para poder calcular el costo del tráfico próximo a generar.
 
-##### Acción
+#### Acción
 1. Se utilizará el paquete de estudiante que ofrece GitHub para el desarrollo del proyecto
 2. Se utilizarán los dominios proporcionados por heroku (~~~.herokuapp.com) para el scrapper y para el api
 3. Se generarán ingresos con el modelo de negocio del proyecto
 
-### High Level Design
+## Análisis de sistema
+
+### Arquitectura de alto nivel
 
 ![](img_assets/arquitectura_alto_nivel.JPG)
 
-### Data Flow Analysis
+### Diagrama de flujo de datos
 
 ![](img_assets/diagrama_flujo_datos.JPG)
 
-### Screen Analysis
+## Análisis de pantallas
 
 ![](img_assets/analisis1.JPG)
 
@@ -310,35 +333,35 @@ El equipo de trabajo no cuenta con la experiencia necesaria para poder calcular 
 
 ![](img_assets/analisis9.JPG)
 
-## System Design
+# Diseño de sistema
 
-### Class Diagram
+## Diagrama de clases
 
 ![](img_assets/diagrama_clases.JPG)
 
-### Architecture Modules
+## Módulos de arquitectura
 
 ![](img_assets/arquitectura_detalle.JPG)
 
-### Color Palette
+## Paletas de colores
 
 ![](img_assets/paleta_colores.JPG)
 
-### UI Prototype
+## Prototipo UI
 
 ![](img_assets/prototipo.JPG)
 
-## API Spec
+# API Spec
 
-### Alumno
+## Alumno
 
-#### Ruta
+### Ruta
 
 ```
 /alumno
 ```
 
-#### Descripción
+### Descripción
 
 En el siguiente endpoint se obtendrá toda la información del alumno. Esto incluye:
 
@@ -348,15 +371,15 @@ En el siguiente endpoint se obtendrá toda la información del alumno. Esto incl
 - Periodos
 - Fechas de pago
 
-#### Método
+### Método
 
 `POST`
 
-#### Parámetros
+### Parámetros
 
 `{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
 
-#### Respuesta (200)
+### Respuesta (200)
 
 ```
 {
@@ -437,27 +460,27 @@ En el siguiente endpoint se obtendrá toda la información del alumno. Esto incl
 }
 ```
 
-### Créditos
+## Créditos
 
-#### Ruta
+### Ruta
 
 ```
 /creditos
 ```
 
-#### Descripción
+### Descripción
 
 En el siguiente endpoint se obtendrán los créditos de un alumno
 
-#### Método
+### Método
 
 `POST`
 
-#### Parámetros
+### Parámetros
 
 `{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
 
-#### Respuesta (200)
+### Respuesta (200)
 
 ```
 {
@@ -477,27 +500,27 @@ En el siguiente endpoint se obtendrán los créditos de un alumno
 }
 ```
 
-### Periodos
+## Periodos
 
-#### Ruta
+### Ruta
 
 ```
 /periodos
 ```
 
-#### Descripción
+### Descripción
 
 En el siguiente endpoint se obtendrán los periodos de un alumno
 
-#### Método
+### Método
 
 `POST`
 
-#### Parámetros
+### Parámetros
 
 `{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
 
-#### Respuesta (200)
+### Respuesta (200)
 
 ```
 {
@@ -534,7 +557,7 @@ En el siguiente endpoint se obtendrán los periodos de un alumno
 ```
 
 
-# Aknowledgements
+# Agradecimientos
 
 Un agradecimiento especial a Andrea Hernández De Alba, por su colaboración inicial en el proyecto, proporcionando
 el diseño de la interfaz gráfica, así como parte de su desarrollo en la aplicación de Android.
