@@ -12,7 +12,7 @@
   * [Rutas](#rutas)
   * [Descripción del sistema](#descripción-del-sistema)
 * [Documentación](#documentación)
-  * [Análisis](#analisis)
+  * [Análisis](#análisis)
     * [Descripción del problema](#descripción-del-problema)
     * [Impacto](#impacto)
     * [Impacto al alumno y a la institución](#impacto-al-alumno-y-a-la-institución)
