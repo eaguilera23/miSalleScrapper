@@ -4,6 +4,8 @@
 
 ## Table of contents
 
+[Español](./REARME_ES.md)
+
 * [Presentation](#presentation)
   * [Characteristics](#characteristics)
   * [Requirements](#requirements)
