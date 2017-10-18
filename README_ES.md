@@ -79,7 +79,7 @@ Para correr miSalle:
 bundle exec rakup -p 3000
 ```
 
-#### Usar rutas
+## Rutas
 
 Para obtener la información del alumno, teniendo su matricula, contraseña y sistema:
 
@@ -129,17 +129,8 @@ En este archivo se encuentra la lógica sobre la navegación a las diferentes ru
 para la obtención de los datos. Específicamente en el método `Navegador.parsear`
 
 Una vez en el navegador, obteniendo la página web, pasará el archivo a su script correspondiente, dependiendo de qué información se desea consultar. Esta lógica se puede encontrar en `app/parser/*`
-```
-navegador.rb
-```
 
-Dependiendo qué información se desea consultar, se envia a uno de estos archivos para transformarla
-y poderla manipular
-```
-parser/
-```
-
-## Análisis
+## Documentación
 
 ### Análisis
 
