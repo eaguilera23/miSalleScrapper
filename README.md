@@ -47,6 +47,8 @@ You can read more about this at `public/index.html`.
 In this repository you will find the server side of the product, which gets the students information from
 the university system, and returns it as a 'json' for its manipulation.
 
+The code of the app complementing the server can be found at 
+
 ### Characteristics
 
 With miSalle you can get:
@@ -548,7 +550,7 @@ By using this, you can get all the the student's credits.
 ```
 
 
-# Aknowledgements
+# Acknowledgements
 
 A special mention to Andrea Hernández De Alba, for her initial colaboration in the project, making the UI design,
 the frontend and part of the development of the Android app.
