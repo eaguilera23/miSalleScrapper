@@ -14,7 +14,6 @@
 * [Documentación](#documentación)
   * [Análisis](#análisis)
     * [Descripción del problema](#descripción-del-problema)
-    * [Impacto](#impacto)
     * [Impacto al alumno y a la institución](#impacto-al-alumno-y-a-la-institución)
     * [Antecedentes](#antecedentes)
     * [Objetivo](#objetivo)

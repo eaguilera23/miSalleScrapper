@@ -4,7 +4,7 @@
 
 ## Table of contents
 
-[Español](./REARME_ES.md)
+[Español](./README_ES.md)
 
 * [Presentation](#presentation)
   * [Characteristics](#characteristics)
@@ -42,6 +42,7 @@
 
 miSalle was a product for the students of the Universidad De La Salle Bajío,
 but the server was blocked due to conflict of interests by the institution administration.
+You can read more about this at `public/index.html`.
 
 In this repository you will find the server side of the product, which gets the students information from
 the university system, and returns it as a 'json' for its manipulation.
@@ -122,17 +123,17 @@ curl -H "Content-Type: application/json" -X POST -d '{"matricula": "XXXXX", "pas
 
 ### System description
 
-Every request to the system, will be processed by the file `app/router_v1.rb`
+Every request to the system, will be processed by the file `app/router_v1.rb`.
 
 The university expended the username and password of the student, but the system doesn't really need those.
 I only implemented it to verify the identity of the user. If you want to get any student's information,
-go to `app/navegador.rb`
+go to `app/navegador.rb`.
 
 In this file you will find the logic that navigates the university system for the data extraction.
-For further specification, go to `Navegador.parsear`
+For further specification, go to `Navegador.parsear`.
 
-Once the `navegador.rb` gets the webpage needed, it sends the information to the files inside `app/parser/`. There the
-system manipulates the data to serve it as a `json`.
+Once the `navegador.rb` gets the webpage needed, it sends the information to the files inside `app/parser/`.
+There the system manipulates the data to serve it as a `json`.
 
 # Documentation
 
@@ -140,149 +141,160 @@ system manipulates the data to serve it as a `json`.
 
 ### Problem Description
 
-Los alumnos de la Universidad De La Salle Bajío no tiene una forma natural de consumir su información relevante
-a la comunidad. Con natural se refiere a nativo en la plataforma en donde se esté consumiendo.
+The students of the Universidad De La Salle Bajío don't have a natural way of consume their relevant academic information.
+With a natural way I want to say "a phone platform native way".
 
 ### Impact
 
-**Alumno**
+**Student**
 
-El proceso de consulta e interacción con la universidad será eficaz, aumentando el nivel de comodidad del estudiante de
-ser parte de la institución.
+The student can check its information faster, so the interaction with its university will be improve,
+making him to feel closer to the institution.
 
-**Institución**
+**Institution**
 
-Se automatizarán procesos que en la actualidad significan tiempo invertido en su ejecución. El personal podrá dedicar su
-tiempo a tareas menos repetitivas y aumentar la productividad de la institución en general.
+Proceses will be automatized with the general vision of the system, which means cost and time savings.
+The school employees can spend their time in less repetitive tasks, improving the institution productivity in general.
 
 ### Background
 
-Al momento del lanzamiento del proyecto para ver:
+At launch day, to see the next information:
 
-- Horario
-- Calificaciones
-- Créditos
-- Maestros
+- Schedule
+- Grades
+- Credits
+- Teachers
 
-Se necesitan los siguientes pasos:
+the student needs to make the next steps:
 
-1. Abrir navegador
-2. Ir a la página de la salle
-3. Ir a la página de la comunidad
-4. Iniciar sesión
-5. Ir a consulta académica
+1. Open web browser
+2. Go to university website
+3. Go to students website
+4. Log in
+5. Go to information website
+6. Go to a webpage depending on what information he needs
 
-Al momento del lanzamiento no existía competencia como tal.
+At launch day there was no competition at all.
 
 ### Objective
 
-Crear una solución móvil que sirva de intermediario entre el alumno y la institución
+Make a mobile solution to serve as intermediary between the student and the institution.
 
 ### Scope
 
-miSalle será un intermediario entre el actual sistema de la universidad, y los dispositivos móviles del alumno
+miSalle will be part of processes that involve the student and what its called "college comunity".
 
 ### Out Of Scope
 
-Si se rompe con la relación alumno-universidad, queda fuera del alcance del proyecto
+If a feature breaks the the relation student-"college comunity" is out of the scope of the project.
 
 ### Cost
 
-- Recursos monetarios que cueste la insfraestructura
-- Recursos humanos
-- Tiempo inadvertido
+- Money to pay the infrastructure
+- Human resources
+- Time
 
 ### Benefit
 
-- No hay competencia en el mercado, por lo que se podría llegar al 100% del alumnado.
-- Se abre la oportunidad de colaborar con la universidad
-- Abre la posibilidad de cambiar el esquema de enseñanza de la escuela
+- There is no market competiton, so the system can reach the 100% of the school population
+- This opens the possibility to work with the university
+- This can open the oportunity to change the teaching system
 
 ### Future
 
-A pesar del alcance que se declaró, se ve a futuro las siguientes características:
+Further in time, I can see the system doing the following:
 
-- Detalles de créditos
-- Plan de estudios
-- Vista de horario por semana
-- El alumno podrá ir anotando sus faltas para no tener que esperar a que se suban al sistema
-- El usuario podrá ser creador de eventos y proyectos para compartir con el alumnado
-- Se creará algún tipo de enlance entre los negocios cerca de la universidad, ya que son parte de la comunidad
-- Se hará difusión sobre eventos organizados por la universidad
-- Se ofrecerá ser un intermediario bancario entre el alumno y la universidad para pagos de colegiaturas, etc...
-- Se creará un sistma de evaluación para maestros y materias, generando retroalimentación visible para los alumnos
+- Credits details
+- Show bachelor subjects
+- Schedule by week
+- The student will be able to track its absences without the need to wait for the system to register them
+- The user will be able to create events and projects, so other students can join them
+- Some type of network will be made between the business around the school and the students
+- A pay option will be available within the app, thus the student doesn't need to go to the bank
+- An evaluation system will be implemented to rate your teachers and subjects
 
 ### Functional Requirements
 
-1. [x] El usuario inciará sesión con sus credenciales de la universidad
-2. [x] El sistema mostrará un horario que sólo recorra las horas de clase del alumno, identificando cada clase con su
-nombre y el del profesor
-3. [x] El sistema mostrará la siguiente clase del alumno en caso de que exista una
-4. [x] El sistema mostrará las calificaciones por parcial del alumno
-5. [x] El sistema mostrará la cantidad de créditos culturales, sociales y deportivos que tiene el alumno
-6. [x] El sistema mostrará un aviso 5 días antes del día de vencimiento de pago de colegiatura
-7. [x] El sistema mostrará las faltas del alumno por materia
-8. [x] El sistema mostrará el nombre, matrícula, y carrera del alumno
-9. [x] El alumno podrá subir una foto a su información personal
+1. [x] The user will access the app with university credentials
+2. [x] The system will show a daily schedule, only showing the student classes with its teacher's name
+3. [x] The system will show the next class in case one exists
+4. [x] The system will show the student's grades by period
+5. [x] The system will show the student's social, cultural and sports credits
+6. [x] The system will show how many days are left before the next payment's due date
+7. [x] The system will show the student's absences by subject
+8. [x] The system will show the student's name, enrollment number and bachelor
+9. [x] The student will upload a picture to its personal information
 
 ### Non Functional Requirements
 
-1. El sistema consumirá la información de los alumnos a través de web scrapping
-2. La aplicación de consumo del alumno será móvil
-3. La aplicación móvil deberá existir para Android y iOS, dándole prioridad de tiempo a Android
-4. El sistema sólo permitirá el ingreso de alumnos con credenciales de instituciones pertenecientes a la
-Universidad De La Salle Bajío
-5. La aplicación deberá ser capaz de mostrar la información del alumno sin una conexión a internet
+1. The system will get the information using web scrapping
+2. The client of the system needs to be a mobile application
+3. The application will exists in Android an iOS platforms, making Android a priority
+4. The system will give access only to those who have university expended credentials
+5. The application needs to be capable of displaying the student's information without an internet connection
 
 ### Risks
 
-#### Bloqueo de ip del scrapper por parte de La Salle
+#### IP blocked by the institution (This happened)
+
+##### Description
+By taking advantage of a vulnerability, and accesing the information by web scrapping, the institution can detect the 
+traffic spike and just block the IP of the system.
+
+##### Severity
+**High**
+It is the main source of information.
+
+##### Action
+1. The [Arquitecture](#high-level-design) shows how the tiers are distributed. The scrapper being hosted on Heroku, gives the system a dynamic IP. So if this risk happens, it only takes to restart the dyno to get a different IP
+2. Keeping the information offline in the student's device, while the dyno restart takes place, the users wont notice the event
+
+##### Result
+This risk happened and led to the shutdown of the service. I underestimated the technology department of the institution,
+and I wasn't prepared enough to overcome the blocking.
+
+#### Change of the institution website
+
+##### Description
+Webscrapping is how the system gets the students information, so this means that it is heavily dependent on how the 
+website html is structured due to the lack of css selectors to navigate it.
+
+##### Severity
+**Medium**
+Every change done to the institution website, needs to be adjusted in the system.
+
+##### Probability
+**Low**
+The website is poorly designed, being only a sequence of html tables and by analysing it, heavily attached to how the
+information is stored in the institution database. Thanks to my expirience as a student at the institution, I observed
+that burocracy slows down any effort to change something, so a change seems hard to happened.
+
+Also it is known that on the first semester of the year, the institution revise the budget to put it to work on the 
+second half of the year. The system being launched at August 2017, gives us a window of opportunity of almost a year 
+to create a solid user base.
+
+##### Action
+Designing the system following SOLID principles and Separation of Concerns, so when change comes, it can happend without
+affecting other components.
+
+#### Lack of income ($$$)
 
 ##### Descripción
-Al obtener la información del sitio de La Salle por medio de scrapping, fácilmente la institución, al percatarse de la extracción de la información, puede sin ningún problema bloquear el acceso al sitio por medio de la ip.
+The project doesn't have have any sponsors to pay for the servers, so for a start the costs will be covered by me 
+(Eduardo). This brings a limitation of funding to hire new developers and scaling the infrastructure.
 
-##### Severidad
-**Alta**
-Es la principal fuente del sistema
+##### Severity
+**Medium**
+The initial inversion doesn't represent much of a problem in a short term plan. By the time the server load increases,
+a solid user base will exists, which brings the opportunity to atract funding.
 
-##### Acción
-1. En la arquitectura se observa que el scrapper estará en un nivel diferente, hospedado en Heroku. Cada 24 hrs Heroku reinicia los dynos, proporcionándole una nueva ip. En caso de que el bloqueo suceda antes, se puede reiniciar el dyno manualmente.
-2. La información al ser semi-estática, se guardará en el dispositivo del usuario, para no depender del sitio de La Salle para el acceso de su información, así en cualquier evento, la interacción de los usuarios ya registrados en el sistema no se verá afectada
+##### Probability
+**Medium**
+I don't have the expirience to make a real estimation of how much the system will cost related to its traffic.
 
-#### Cambio de formato en sitio web de La Salle
-
-##### Descripción
-El sistema al hacer scrapping al sitio de La Salle, depende del como la información es presentada en el buscador. Si la institución decide cambiar el esquema del html, el scrapper dejaría de funcionar efectivamente
-
-##### Severidad
-**Media**
-Esto llevaría a rediseñar el scrapper para que satisfaga las necesidades del esquema html de la institución
-
-##### Probabilidad
-**Baja**
-El sitio está pobremente diseñado, y al parecer fuertemente atado al cómo la información es guardada en su almacén de datos. El rediseño implica un esfuerzo enorme, que la institución no logrará a corto plazo.
-También se sabe que en el primer semestre del año, la universidad analiza y distribuye el presupuesto de la institución, poniendo a trabajar el dinero en el segundo semestre. Esto nos da tiempo para crear una base de usuarios solida y para estar listos para el nuevo ingreso en Agosto
-
-##### Acción
-Diseñar el sistema de una manera que los cambios del scrapper sean en 1 sólo lugar, sin afectar la funcionalidad de todo lo demás
-
-#### Insuficiencia de fondos ($) para mantener el sistema
-
-##### Descripción
-El equipo de trabajo actualmente no cuenta con inversionistas mayores, por lo que el proyecto se está llevando a cabo con recursos propios. Esto significa una limitada disposición de fondos para la contratación de desarrolladores y para pagar servidores
-
-##### Severidad
-**Mediana**
-En el momento que la demanda económica del proyecto crezca como para no ser capaces de soportar los gastos, significa que la base de usuarios y el tráfico son constantes, consecuentemente el valor del proyecto crece y se puede buscar una manera de financiar el proyecto con bases más sólidas
-
-##### Probabilidad
-**Mediana**
-El equipo de trabajo no cuenta con la experiencia necesaria para poder calcular el costo del tráfico próximo a generar.
-
-##### Acción
-1. Se utilizará el paquete de estudiante que ofrece GitHub para el desarrollo del proyecto
-2. Se utilizarán los dominios proporcionados por heroku (~~~.herokuapp.com) para el scrapper y para el api
-3. Se generarán ingresos con el modelo de negocio del proyecto
+##### Action
+1. A free private git repository will be used for the development
+2. An ad centric business model will be utilized
 
 ### High Level Design
 
@@ -332,33 +344,33 @@ El equipo de trabajo no cuenta con la experiencia necesaria para poder calcular 
 
 ## API Spec
 
-### Alumno
+### Student
 
-#### Ruta
+#### Endpoint
 
 ```
 /alumno
 ```
 
-#### Descripción
+#### Description
 
-En el siguiente endpoint se obtendrá toda la información del alumno. Esto incluye:
+By using this, you can get all the information of the student, including the following:
 
-- Información
-- Horario
-- Créditos
-- Periodos
-- Fechas de pago
+- General information
+- Schedule
+- Credits
+- Grades
+- Payment due dates
 
-#### Método
+#### Method
 
 `POST`
 
-#### Parámetros
+#### Parameters
 
 `{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
 
-#### Respuesta (200)
+#### Response (200)
 
 ```
 {
@@ -439,27 +451,27 @@ En el siguiente endpoint se obtendrá toda la información del alumno. Esto incl
 }
 ```
 
-### Créditos
+### Credits
 
-#### Ruta
+#### Endpoint
 
 ```
 /creditos
 ```
 
-#### Descripción
+#### Description
 
-En el siguiente endpoint se obtendrán los créditos de un alumno
+By using this, you can get all the the student's credits.
 
-#### Método
+#### Method
 
 `POST`
 
-#### Parámetros
+#### Parameters
 
 `{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
 
-#### Respuesta (200)
+#### Response (200)
 
 ```
 {
@@ -479,27 +491,27 @@ En el siguiente endpoint se obtendrán los créditos de un alumno
 }
 ```
 
-### Periodos
+### Grades
 
-#### Ruta
+#### Endpoint
 
 ```
 /periodos
 ```
 
-#### Descripción
+#### Description
 
-En el siguiente endpoint se obtendrán los periodos de un alumno
+By using this, you can get all the the student's credits.
 
-#### Método
+#### Method
 
 `POST`
 
-#### Parámetros
+#### Parameters
 
 `{matricula: "XXXXX", password: "XXXXXX", sistema: "X"}`
 
-#### Respuesta (200)
+#### Response (200)
 
 ```
 {
