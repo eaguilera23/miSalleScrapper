@@ -261,7 +261,7 @@ website html is structured due to the lack of css selectors to navigate it.
 
 ##### Severity
 **Medium**
-Every change done to the institution website, needs to be adjusted in the system.
+Every change done to the institution's website, needs to be adjusted in the system.
 
 ##### Probability
 **Low**
@@ -326,7 +326,7 @@ I don't have the expirience to make a real estimation of how much the system wil
 
 ## System Design
 
-### Class Diagram
+### Class Diagram (May be outdated)
 
 ![](img_assets/diagrama_clases.JPG)
 
@@ -550,4 +550,5 @@ By using this, you can get all the the student's credits.
 
 # Aknowledgements
 
-A special mention to Andrea Hernández De Alba, for her initial colaboration in the proyecto, making the UI design, the frontend and part of the development of the Android app.
+A special mention to Andrea Hernández De Alba, for her initial colaboration in the project, making the UI design,
+the frontend and part of the development of the Android app.
